@@ -17,17 +17,17 @@
                   <Font name="Arial" size="47.0" />
                </font>
             </Text>
-            <TextField fx:id="usernameField" layoutX="84.0" layoutY="261.0" prefHeight="33.0" prefWidth="337.0" promptText="Username">
+            <TextField fx:id="usernameField" layoutX="84.0" layoutY="261.0" prefHeight="33.0" prefWidth="337.0" >
                <font>
                   <Font name="Arial" size="20.0" />
                </font>
             </TextField>
-            <PasswordField fx:id="passwordField" layoutX="84.0" layoutY="331.0" prefHeight="37.0" prefWidth="337.0" promptText="Password">
+            <PasswordField fx:id="passwordField" layoutX="85.0" layoutY="331.0" prefHeight="37.0" prefWidth="337.0">
                <font>
                   <Font name="Arial" size="20.0" />
                </font>
             </PasswordField>
-            <Button fx:id="loginButton" layoutX="169.0" layoutY="422.0" mnemonicParsing="false" onAction="#onLogin" prefHeight="51.0" prefWidth="168.0" style="-fx-background-color: #064789;" text="Login" textFill="#d7d7d7">
+            <Button fx:id="loginButton" layoutX="169.0" layoutY="422.0" mnemonicParsing="false" onAction="#onLogin" prefHeight="51.0" prefWidth="168.0" style="-fx-background-color: #064789;" textFill="#d7d7d7">
                <font>
                   <Font name="Arial" size="22.0" />
                </font>
