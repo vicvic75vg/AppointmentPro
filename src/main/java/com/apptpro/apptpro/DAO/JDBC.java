@@ -1,4 +1,4 @@
-package com.apptpro.apptpro.DBO;
+package com.apptpro.apptpro.DAO;
 import java.sql.Connection;
 import java.sql.DriverManager;
 

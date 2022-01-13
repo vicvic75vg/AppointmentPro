@@ -1,6 +1,6 @@
 package com.apptpro.apptpro.Controllers;
 
-import com.apptpro.apptpro.DBO.UserLogin;
+import com.apptpro.apptpro.DAO.UserLogin;
 import com.apptpro.apptpro.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -8,7 +8,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import com.apptpro.apptpro.Controllers.MainScreenController;
 
 import java.io.IOException;
 import java.time.ZoneId;
@@ -39,6 +38,10 @@ public class LoginController implements Initializable {
     private Button loginButton;
 
     /**
+     * The Resource Bundle
+     */
+    private ResourceBundle rb = ResourceBundle.getBundle("login", new Locale("fr","BE"));
+    /**
      * The label used to display the users
      * normalized region on the login screen.
      */
@@ -58,7 +61,7 @@ public class LoginController implements Initializable {
     private void onLogin() throws IOException {
         if(passwordField.getText().trim().isEmpty() || usernameField.getText().trim().isEmpty())  {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Password or username cannot be empty!");
+            alert.setContentText(this.rb.getString("errorFieldEmpty"));
             alert.showAndWait();
             return;
         }
@@ -68,12 +71,12 @@ public class LoginController implements Initializable {
 
         if(!isUserLoggedIn) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Could not not user in! Credentials invalid!");
+            alert.setContentText(this.rb.getString("errorLoggingIn"));
             alert.showAndWait();
             return;
         }
         System.out.println("User logged in successfully...");
-        Main.changeScene(MainScreenController.class,"MainScreen.fxml","Home");
+        Main.changeScene(MainScreenController.class,null,"MainScreen.fxml","Home");
     }
 
     /**
@@ -88,11 +91,9 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Locale loc = new Locale("fr","FR");
-        rb = ResourceBundle.getBundle("login",loc);
-        passwordField.setPromptText(rb.getString("password"));
-        usernameField.setPromptText(rb.getString("username"));
-        loginButton.setText(rb.getString("login"));
+        passwordField.setPromptText(this.rb.getString("password"));
+        usernameField.setPromptText(this.rb.getString("username"));
+        loginButton.setText(this.rb.getString("login"));
         localeLabel.setText(getZoneIdMessage());
     }
 }

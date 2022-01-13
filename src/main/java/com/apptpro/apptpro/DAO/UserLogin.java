@@ -1,6 +1,5 @@
-package com.apptpro.apptpro.DBO;
+package com.apptpro.apptpro.DAO;
 
-import com.apptpro.apptpro.Main;
 import com.apptpro.apptpro.Models.User;
 
 import java.sql.Connection;

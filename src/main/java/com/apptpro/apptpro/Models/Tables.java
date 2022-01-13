@@ -19,6 +19,10 @@ public class Tables {
                                          TableColumn<Customer, String> customerPostalCode,
                                          TableColumn<Customer,String> customerPhone) {
 
-        customerID.setCellValueFactory(new PropertyValueFactory<Customer,Integer>("Customer_ID"));
+        customerID.setCellValueFactory(new PropertyValueFactory<Customer,Integer>("id"));
+        customerName.setCellValueFactory(new PropertyValueFactory<Customer,String>("name"));
+        customerAddress.setCellValueFactory(new PropertyValueFactory<Customer,String>("address"));
+        customerPostalCode.setCellValueFactory(new PropertyValueFactory<Customer,String>("postalCode"));
+        customerPhone.setCellValueFactory(new PropertyValueFactory<Customer,String>("phone"));
     }
 }

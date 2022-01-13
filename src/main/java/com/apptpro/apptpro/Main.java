@@ -1,7 +1,8 @@
 package com.apptpro.apptpro;
 
 import com.apptpro.apptpro.Controllers.LoginController;
-import com.apptpro.apptpro.DBO.JDBC;
+import com.apptpro.apptpro.DAO.JDBC;
+import com.apptpro.apptpro.Models.Customer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -9,8 +10,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Type;
-import java.util.Locale;
 
 public class Main extends Application {
 
@@ -43,11 +42,24 @@ public class Main extends Application {
      * @param title The title of the scene
      * @throws IOException Throws an IOException when loading the scene.
      */
-    public static <T> void changeScene(Class<T> controller, String view, String title) throws IOException {
+    public static <T> void changeScene(Class<?> controller, Customer params, String view, String title) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(view));
         Object c = null;
+        if(params == null) {
+            try {
+                c = controller.getDeclaredConstructor().newInstance();
+            } catch (IllegalAccessException | NoSuchMethodException | InstantiationException | InvocationTargetException e) {
+                e.printStackTrace();
+            }
+            fxmlLoader.setController(c);
+            Scene scene = new Scene(fxmlLoader.load());
+            mainStage.setTitle(title);
+            mainStage.setScene(scene);
+            mainStage.show();
+            return;
+        }
         try {
-            c = controller.getDeclaredConstructor().newInstance();
+            c = controller.getConstructor(Customer.class).newInstance(params);
         } catch (IllegalAccessException | NoSuchMethodException | InstantiationException | InvocationTargetException e) {
             e.printStackTrace();
         }
