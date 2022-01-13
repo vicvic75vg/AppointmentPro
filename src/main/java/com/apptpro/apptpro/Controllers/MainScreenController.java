@@ -82,7 +82,11 @@ public class MainScreenController implements Initializable {
 
     @FXML
     private void addCustomer() {
-        //Main.changeScene(AddCustomerController.class,null,"AddCustomer.fxml","Add Customer");
+        try {
+            Main.changeScene(AddCustomerController.class,null,"AddCustomer.fxml","Add Customer");
+        } catch(IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override

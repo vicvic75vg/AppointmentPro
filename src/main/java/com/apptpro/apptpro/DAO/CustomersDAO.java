@@ -66,6 +66,34 @@ public class CustomersDAO implements DAO<Customer>{
        return allCustomers;
     }
 
+    public int generateID() {
+        try(Statement st = connection.createStatement()) {
+            String query = "SELECT MAX(Customer_ID) FROM customers;";
+            ResultSet rs = st.executeQuery(query);
+            while(rs.next()) {
+                return rs.getInt("MAX(Customer_ID)") + 1;
+            }
+        } catch(SQLException ex) {
+            ex.printStackTrace();
+        }
+        return 0;
+    }
+    public boolean add(Customer customer) {
+       try (Statement st = connection.createStatement())  {
+          String query = String.format("INSERT INTO customers VALUES(%d , '%s' , '%s' , '%s' , '%s' , " +
+                  "NOW(), 'apptpro', NOW(), 'apptpro', %d);", customer.getCustomerID(),customer.getCustomerName(),
+                  customer.getCustomerAddress(),customer.getCustomerPostalCode(),customer.getCustomerPhone(),
+                  customer.getDivision().getDivisionID());
+          int result = st.executeUpdate(query);
+           System.out.println(result);
+          if(result == 1) {
+              return true;
+          }
+       } catch(SQLException ex) {
+           ex.printStackTrace();
+       }
+       return false;
+    }
 
     @Override
     public void save(Customer customer) {

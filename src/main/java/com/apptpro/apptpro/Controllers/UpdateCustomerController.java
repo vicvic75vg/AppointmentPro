@@ -74,6 +74,7 @@ public class UpdateCustomerController implements Initializable {
        ObservableList<FirstLevelDivision> filteredFirstLevel = firstLevelDivisionsDAO.getAllFirstLevelDivisions().filtered(
                object -> object.getCountryID() == country.getCountryID()
        );
+
        customerFirstLevelField.setItems(filteredFirstLevel);
        customerFirstLevelField.getSelectionModel().select(0);
     }
@@ -81,8 +82,8 @@ public class UpdateCustomerController implements Initializable {
 
     @FXML
     private void saveUpdate() {
-        Customer customer = new Customer(selectedCustomer.getCustomerID(),customerNameField.getText(),
-                customerAddressField.getText(),customerPostalCodeField.getText(),customerPhoneField.getText(),
+        Customer customer = new Customer(selectedCustomer.getCustomerID(),customerNameField.getText().trim(),
+                customerAddressField.getText().trim(),customerPostalCodeField.getText().trim(),customerPhoneField.getText().trim(),
                 selectedCustomer.getCreatedDate(), selectedCustomer.getCreatedBy(), selectedCustomer.getLastUpdate(),
                 selectedCustomer.getLastUpdatedBy(), customerFirstLevelField.getSelectionModel().getSelectedItem(),
                 customerCountryField.getSelectionModel().getSelectedItem());
@@ -106,9 +107,13 @@ public class UpdateCustomerController implements Initializable {
         customerCountryField.setItems(countriesDAO.getAllCountries());
         customerCountryField.getSelectionModel().select(selectedCustomer.getCountry());
 
-
         FirstLevelDivisionsDAO firstLevelDivisionsDAO = new FirstLevelDivisionsDAO();
-        customerFirstLevelField.setItems(firstLevelDivisionsDAO.getAllFirstLevelDivisions());
+        Country country = customerCountryField.getSelectionModel().getSelectedItem();
+        ObservableList<FirstLevelDivision> filteredFirstLevel = firstLevelDivisionsDAO.getAllFirstLevelDivisions().filtered(
+                object -> object.getCountryID() == country.getCountryID()
+        );
+
+        customerFirstLevelField.setItems(filteredFirstLevel);
         customerFirstLevelField.getSelectionModel().select(selectedCustomer.getDivision());
     }
 }

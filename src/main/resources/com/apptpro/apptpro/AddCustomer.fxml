@@ -14,7 +14,7 @@
                 <Font name="Arial" size="15.0" />
             </font>
         </Button>
-        <Button fx:id="createCustomerButton" layoutX="426.0" layoutY="698.0" mnemonicParsing="false" onAction="#saveUpdate" prefHeight="47.0" prefWidth="494.0" text="Create New Customer">
+        <Button fx:id="createCustomerButton" onAction="#addCustomer" layoutX="426.0" layoutY="698.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="494.0" text="Create New Customer">
             <font>
                 <Font name="Arial" size="15.0" />
             </font>
