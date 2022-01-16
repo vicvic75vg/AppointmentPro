@@ -14,26 +14,22 @@
                 <Font name="Arial" size="12.0" />
             </font>
         </Label>
-      <Button layoutX="14.0" layoutY="93.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="153.0" text="View Appointments">
+      <Button onAction="#viewAppointments"  layoutX="14.0" layoutY="93.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="153.0" text="View Appointments">
          <font>
             <Font name="Arial" size="15.0" />
          </font>
       </Button>
       <TableView fx:id="customerTable" layoutX="178.0" prefHeight="685.0" prefWidth="903.0">
         <columns>
-          <TableColumn fx:id="customerID" prefWidth="58.0" text="ID" />
-          <TableColumn fx:id="customerName" prefWidth="103.0" text="Name" />
-            <TableColumn fx:id="customerAddress" prefWidth="107.0" text="Address" />
-            <TableColumn fx:id="customerPostalCode" prefWidth="83.0" text="Postal Code" />
-            <TableColumn fx:id="customerPhone" prefWidth="95.0" text="Phone" />
-            <TableColumn fx:id="createdDate" prefWidth="98.0" text="Create Date" />
-            <TableColumn fx:id="createdBy" prefWidth="70.0" text="Created By" />
-            <TableColumn fx:id="lastUpdate" prefWidth="108.0" text="Last Update" />
-            <TableColumn fx:id="lastUpdatedBy" minWidth="0.0" prefWidth="105.0" text="Last Update By" />
-            <TableColumn fx:id="divisionID" prefWidth="74.0" text="Division ID" />
+          <TableColumn fx:id="customerID" prefWidth="91.0" text="ID" />
+          <TableColumn fx:id="customerName" prefWidth="192.0" text="Name" />
+            <TableColumn fx:id="customerAddress" prefWidth="186.0" text="Address" />
+            <TableColumn fx:id="customerPostalCode" prefWidth="153.0" text="Postal Code" />
+            <TableColumn fx:id="customerPhone" prefWidth="165.0" text="Phone" />
+            <TableColumn fx:id="divisionID" prefWidth="115.0" text="Division ID" />
         </columns>
       </TableView>
-      <Button onAction="#addCustomer" layoutX="178.0" layoutY="698.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="207.0" text="Add Customers">
+      <Button layoutX="178.0" layoutY="698.0" mnemonicParsing="false" onAction="#addCustomer" prefHeight="47.0" prefWidth="207.0" text="Add Customers">
          <font>
             <Font name="Arial" size="15.0" />
          </font>
@@ -48,5 +44,10 @@
             <Font name="Arial" size="15.0" />
          </font>
       </Button>
+        <Button fx:id="viewReportsButton" layoutX="14.0" layoutY="598.0" mnemonicParsing="false" onAction="#viewReports" prefHeight="47.0" prefWidth="153.0" text="View Reports">
+        <font>
+            <Font name="Arial" size="15.0" />
+        </font>
+    </Button>
     </children>
 </AnchorPane>

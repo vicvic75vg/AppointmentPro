@@ -44,7 +44,7 @@ public class AddCustomerController implements Initializable {
     @FXML
     private void toMainScreen() {
         try {
-            Main.changeScene(MainScreenController.class,null,"MainScreen.fxml","Main");
+            Main.changeSceneToMainScreen();
         } catch (IOException ex) {
             ex.printStackTrace();
         }

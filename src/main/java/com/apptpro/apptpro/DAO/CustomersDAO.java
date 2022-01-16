@@ -126,10 +126,15 @@ public class CustomersDAO implements DAO<Customer>{
     @Override
     public boolean delete(Customer selectedCustomer) {
         try(Statement st = connection.createStatement()) {
-            String query = "DELETE FROM customers WHERE Customer_ID ="+
-                    selectedCustomer.getCustomerID();
+            String checkConstraints = String.format("SELECT * FROM customers INNER JOIN appointments ON customers.Customer_ID = appointments.Customer_ID WHERE appointments.Customer_ID = %d ;",selectedCustomer.getCustomerID());
+            ResultSet rs = st.executeQuery(checkConstraints);
+
+            if(rs.next()) {
+                return false;
+            }
+            String query = String.format("DELETE FROM customers WHERE customers.Customer_ID= %d", selectedCustomer.getCustomerID());
             int result = st.executeUpdate(query);
-            return true;
+            return result == 1;
         } catch(SQLException ex) {
             ex.printStackTrace();
             return false;

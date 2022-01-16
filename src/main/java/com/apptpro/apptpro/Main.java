@@ -1,10 +1,12 @@
 package com.apptpro.apptpro;
 
-import com.apptpro.apptpro.Controllers.LoginController;
+import com.apptpro.apptpro.Controllers.*;
 import com.apptpro.apptpro.DAO.JDBC;
+import com.apptpro.apptpro.Models.Appointment;
 import com.apptpro.apptpro.Models.Customer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -35,41 +37,74 @@ public class Main extends Application {
         mainStage.show();
     }
 
-    /**
-     * Allows the changing of the scene inside the mainStage.
-     * @param controller The controller for the passed view
-     * @param view The view to use
-     * @param title The title of the scene
-     * @throws IOException Throws an IOException when loading the scene.
-     */
-    public static <T> void changeScene(Class<?> controller, Customer params, String view, String title) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(view));
-        Object c = null;
-        if(params == null) {
-            try {
-                c = controller.getDeclaredConstructor().newInstance();
-            } catch (IllegalAccessException | NoSuchMethodException | InstantiationException | InvocationTargetException e) {
-                e.printStackTrace();
-            }
-            fxmlLoader.setController(c);
-            Scene scene = new Scene(fxmlLoader.load());
-            mainStage.setTitle(title);
-            mainStage.setScene(scene);
-            mainStage.show();
-            return;
-        }
-        try {
-            c = controller.getConstructor(Customer.class).newInstance(params);
-        } catch (IllegalAccessException | NoSuchMethodException | InstantiationException | InvocationTargetException e) {
-            e.printStackTrace();
-        }
-        fxmlLoader.setController(c);
-        Scene scene = new Scene(fxmlLoader.load());
-        mainStage.setTitle(title);
+
+
+    public static void changeSceneToUpdateCustomer(Customer customer) throws IOException {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("UpdateCustomer.fxml"));
+        UpdateCustomerController controller = new UpdateCustomerController(customer);
+        loader.setController(controller);
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
         mainStage.setScene(scene);
-        mainStage.show();
     }
 
+    public static void changeSceneToAddCustomer() throws IOException {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("AddCustomer.fxml"));
+        AddCustomerController controller = new AddCustomerController();
+        loader.setController(controller);
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        mainStage.setScene(scene);
+    }
+
+    public static void changeSceneToAppointments() throws IOException {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("AppointmentsPage.fxml"));
+        AppointmentController controller = new AppointmentController();
+        loader.setController(controller);
+
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        mainStage.setScene(scene);
+
+    }
+    public static void changeSceneToAddAppointment() throws IOException {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("AddAppointment.fxml"));
+        AddAppointmentController controller = new AddAppointmentController();
+        loader.setController(controller);
+
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        mainStage.setScene(scene);
+    }
+
+    public static void changeSceneToReports() throws IOException {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("Reports.fxml"));
+        ReportsController controller = new ReportsController();
+        loader.setController(controller);
+
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        mainStage.setScene(scene);
+
+    }
+    public static void changeSceneToUpdateAppointments(Appointment appointment) throws IOException {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("UpdateAppointment.fxml"));
+        UpdateAppointmentController controller = new UpdateAppointmentController(appointment);
+        loader.setController(controller);
+
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        mainStage.setScene(scene);
+
+    }
+    public static void changeSceneToMainScreen() throws IOException {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("MainScreen.fxml"));
+        MainScreenController controller = new MainScreenController();
+        loader.setController(controller);
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        mainStage.setScene(scene);
+    }
 
     public static void main(String[] args) {
         JDBC.openConnection();

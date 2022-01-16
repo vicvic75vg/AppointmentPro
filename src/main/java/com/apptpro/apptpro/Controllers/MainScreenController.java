@@ -1,10 +1,13 @@
 package com.apptpro.apptpro.Controllers;
 
+import com.apptpro.apptpro.DAO.AppointmentsDAO;
 import com.apptpro.apptpro.DAO.CustomersDAO;
 import com.apptpro.apptpro.DAO.JDBC;
 import com.apptpro.apptpro.Main;
+import com.apptpro.apptpro.Models.Appointment;
 import com.apptpro.apptpro.Models.Customer;
 import com.apptpro.apptpro.Models.Tables;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -12,6 +15,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.time.*;
 import java.util.Date;
 import java.util.ResourceBundle;
 
@@ -30,19 +35,12 @@ public class MainScreenController implements Initializable {
     @FXML
     private TableColumn<Customer,String> customerPhone;
     @FXML
-    private TableColumn<Customer, String> createdDate;
-    @FXML
-    private TableColumn<Customer, String> createdBy;
-    @FXML
-    private TableColumn<Customer, String> lastUpdate;
-    @FXML
-    private TableColumn<Customer, String> lastUpdatedBy;
-    @FXML
     private TableColumn<Customer, Integer> divisionID;
 
 
-
-
+    /**
+     * Removes the selected customer from the database.
+     */
     @FXML
     private void deleteCustomer() {
         Customer selectedCustomer = customerTable.getSelectionModel().getSelectedItem();
@@ -65,7 +63,12 @@ public class MainScreenController implements Initializable {
             alertSuccess.showAndWait();
             customerTable.setItems(customersDAO.getAllCustomers());
             customerTable.refresh();
+            return;
         }
+        Alert alertFailure = new Alert(Alert.AlertType.ERROR);
+        alertFailure.setContentText("The customer has current appointments open!\n Remove customer from appointments to delete customer.");
+        alertFailure.setHeaderText("Error");
+        alertFailure.showAndWait();
     }
     @FXML
     private void updateCustomer() {
@@ -74,32 +77,61 @@ public class MainScreenController implements Initializable {
             return;
         }
         try {
-            Main.changeScene(UpdateCustomerController.class,customer, "UpdateCustomer.fxml", "Update Customer");
+            Main.changeSceneToUpdateCustomer(customer);
+        } catch(IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    /**
+     * Changes the current stage to the AddCustomer.fxml view
+     */
+    @FXML
+    private void addCustomer() {
+        try {
+            Main.changeSceneToAddCustomer();
         } catch(IOException ex) {
             ex.printStackTrace();
         }
     }
 
     @FXML
-    private void addCustomer() {
+    private void viewAppointments() {
         try {
-            Main.changeScene(AddCustomerController.class,null,"AddCustomer.fxml","Add Customer");
+            Main.changeSceneToAppointments();
         } catch(IOException ex) {
             ex.printStackTrace();
         }
     }
 
+    @FXML
+    private void viewReports() {
+        try {
+            Main.changeSceneToReports();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+
+
+
+
+
+
+
+
+
+
         customerID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
         customerName.setCellValueFactory(new PropertyValueFactory<>("customerName"));
         customerAddress.setCellValueFactory(new PropertyValueFactory<>("customerAddress"));
         customerPostalCode.setCellValueFactory(new PropertyValueFactory<>("customerPostalCode"));
         customerPhone.setCellValueFactory(new PropertyValueFactory<>("customerPhone"));
-        createdDate.setCellValueFactory(new PropertyValueFactory<>("createdDate"));
-        createdBy.setCellValueFactory(new PropertyValueFactory<>("createdBy"));
-        lastUpdate.setCellValueFactory(new PropertyValueFactory<>("lastUpdate"));
-        lastUpdatedBy.setCellValueFactory(new PropertyValueFactory<>("lastUpdatedBy"));
         divisionID.setCellValueFactory(new PropertyValueFactory<>("divisionID"));
         CustomersDAO customersDAO = new CustomersDAO();
 

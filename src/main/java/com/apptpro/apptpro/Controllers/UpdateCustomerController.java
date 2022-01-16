@@ -10,21 +10,19 @@ import com.apptpro.apptpro.Models.FirstLevelDivision;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class UpdateCustomerController implements Initializable {
-    /**
-     * The selected customer
-     */
+
     private Customer selectedCustomer;
 
+    @FXML
+    private TableView<Customer> customerTable;
     @FXML
     private TextField customerIDField;
     @FXML
@@ -41,6 +39,19 @@ public class UpdateCustomerController implements Initializable {
     private ComboBox<FirstLevelDivision> customerFirstLevelField;
     @FXML
     private Button cancelButton;
+    @FXML
+    private TableColumn<Customer,Integer> customerID;
+    @FXML
+    private TableColumn<Customer,String> customerName;
+    @FXML
+    private TableColumn<Customer,String> customerAddress;
+    @FXML
+    private TableColumn<Customer,String>  customerPostalCode;
+    @FXML
+    private TableColumn<Customer,String> customerPhone;
+    @FXML
+    private TableColumn<Customer, Integer> divisionID;
+
 
 
     /**
@@ -57,7 +68,7 @@ public class UpdateCustomerController implements Initializable {
     @FXML
     private void toMainScreen() {
         try {
-            Main.changeScene(MainScreenController.class,null,"MainScreen.fxml","Main");
+            Main.changeSceneToMainScreen();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -65,7 +76,7 @@ public class UpdateCustomerController implements Initializable {
 
     /**
      * Reflects the changes necessary to load appropriate
-     * first-level divisions in the customerFirstLevelField
+     * first-level divisions in the customerFirstLevelField, based on a chosen country
      */
     @FXML
     private void propagateFirstLevelField() {
@@ -80,6 +91,12 @@ public class UpdateCustomerController implements Initializable {
     }
 
 
+    /**
+     * Converts all user TextFields and combo box options and creates a new Customer
+     * object. This object is then passed to the Customers Data Access Object to
+     * update existing row in the database. If the update is successful, the application will
+     * return to the main screen. If not successful, an error Alert message will be displayed, notifying the user.
+     */
     @FXML
     private void saveUpdate() {
         Customer customer = new Customer(selectedCustomer.getCustomerID(),customerNameField.getText().trim(),
@@ -91,12 +108,36 @@ public class UpdateCustomerController implements Initializable {
         boolean isSuccess = customersDAO.update(customer);
         if(isSuccess) {
             toMainScreen();
+            return;
         }
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setContentText("Could not update user in the database!");
+        alert.showAndWait();
     }
 
 
+    /**
+     * Initializes the customer text fields and country/first level ComboBoxes
+     * @param url URL to use, unused in this override
+     * @param resourceBundle The resource bundle to use, unused in this override
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        customerID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+        customerName.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+        customerAddress.setCellValueFactory(new PropertyValueFactory<>("customerAddress"));
+        customerPostalCode.setCellValueFactory(new PropertyValueFactory<>("customerPostalCode"));
+        customerPhone.setCellValueFactory(new PropertyValueFactory<>("customerPhone"));
+        divisionID.setCellValueFactory(new PropertyValueFactory<>("divisionID"));
+        CustomersDAO customersDAO = new CustomersDAO();
+
+        customerTable.setItems(customersDAO.getAllCustomers());
+        customerTable.refresh();
+
+
+
         customerIDField.setText(String.valueOf(selectedCustomer.getCustomerID()));
         customerNameField.setText(selectedCustomer.getCustomerName());
         customerAddressField.setText(selectedCustomer.getCustomerAddress());
