@@ -5,6 +5,12 @@ public class Contact {
     private String contactName;
     private String contactEmail;
 
+    /**
+     * Creates a new Contact object
+     * @param contactID The ID of the contact
+     * @param contactName The name of the contact
+     * @param contactEmail The email of the contact
+     */
     public Contact(int contactID,String contactName,String contactEmail) {
         setContactID(contactID);
         setContactName(contactName);

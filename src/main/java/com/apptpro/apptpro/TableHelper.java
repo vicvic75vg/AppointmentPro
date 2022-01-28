@@ -6,6 +6,19 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class TableHelper {
+    /**
+     * Initializes table for displaying appointments
+     * @param allApptID TableColumn ApptID
+     * @param allApptTitle TableColumn ApptTitle
+     * @param allApptDesc TableColumn ApptDesc
+     * @param allApptLoc TableColumn ApptLoc
+     * @param allApptContact TableColumn ApptContact
+     * @param allApptType TableColumn ApptType
+     * @param allApptStartDT TableColumn ApptStart
+     * @param allApptEndDT TableColumn ApptEnd
+     * @param allApptCustID TableColumn apptCustID
+     * @param allApptUserID TableColumn apptUserID
+     */
     public static void initAllApptTables(TableColumn<Appointment,Integer> allApptID,
                                          TableColumn<Appointment,String> allApptTitle,
                                          TableColumn<Appointment,String> allApptDesc,
@@ -23,8 +36,8 @@ public class TableHelper {
         allApptDesc.setCellValueFactory(new PropertyValueFactory<>("description"));
         allApptTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
         allApptLoc.setCellValueFactory(new PropertyValueFactory<>("location"));
-        allApptStartDT.setCellValueFactory(new PropertyValueFactory<>("start"));
-        allApptEndDT.setCellValueFactory(new PropertyValueFactory<>("end"));
+        allApptStartDT.setCellValueFactory(new PropertyValueFactory<>("formattedStart"));
+        allApptEndDT.setCellValueFactory(new PropertyValueFactory<>("formattedEnd"));
         allApptUserID.setCellValueFactory(new PropertyValueFactory<>("userID"));
     }
 }

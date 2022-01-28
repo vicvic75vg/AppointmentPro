@@ -77,6 +77,7 @@ public class UpdateCustomerController implements Initializable {
     /**
      * Reflects the changes necessary to load appropriate
      * first-level divisions in the customerFirstLevelField, based on a chosen country
+     * LAMBDA EXPRESSION USED TO FILTER FIRST LEVEL DIVISIONS BY SELECTED COUNTRY
      */
     @FXML
     private void propagateFirstLevelField() {

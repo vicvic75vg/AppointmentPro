@@ -66,6 +66,10 @@ public class CustomersDAO implements DAO<Customer>{
        return allCustomers;
     }
 
+    /**
+     * Generates a unique ID based on the current number of customers
+     * @return A unique ID for a new customer
+     */
     public int generateID() {
         try(Statement st = connection.createStatement()) {
             String query = "SELECT MAX(Customer_ID) FROM customers;";
@@ -78,6 +82,12 @@ public class CustomersDAO implements DAO<Customer>{
         }
         return 0;
     }
+
+    /**
+     * Adds a new Customer object into the database
+     * @param customer The new Customer object to insert into the database
+     * @return Returns true on successful insertion
+     */
     public boolean add(Customer customer) {
        try (Statement st = connection.createStatement())  {
           String query = String.format("INSERT INTO customers VALUES(%d , '%s' , '%s' , '%s' , '%s' , " +
@@ -95,11 +105,16 @@ public class CustomersDAO implements DAO<Customer>{
        return false;
     }
 
+
     @Override
     public void save(Customer customer) {
-        allCustomers.add(customer);
     }
 
+    /**
+     * Updates the existing Customer object in the database
+     * @param customer The Customer to be updated
+     * @return Returns true on successful customer update in the database
+     */
     @Override
     public boolean update(Customer customer) {
         try(Statement st = connection.createStatement()) {

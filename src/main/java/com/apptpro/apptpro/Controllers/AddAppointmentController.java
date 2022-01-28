@@ -96,8 +96,8 @@ public class AddAppointmentController implements Initializable {
             alert.setContentText("The chosen start date and time occurs after the end date and time!");
             alert.showAndWait();
             return;
-
         }
+        //checks against office utc hours, which translate from 3AM to 12PM
         if((startUTC.getHour() >= 3 && startUTC.getHour() <= 12) || endUTC.getHour() >= 2 && endUTC.getHour() <= 12) {
 
             System.out.println(":in");
@@ -124,6 +124,8 @@ public class AddAppointmentController implements Initializable {
         try {
             String isSuccess = "";
             AppointmentsDAO appointmentsDAO = new AppointmentsDAO();
+
+            //Create appointment using the UTC end and start time
             Appointment appointment = new Appointment(appointmentsDAO.generateID(), titleTextField.getText().trim(), descriptionTextArea.getText().trim(),
                     contactComboBox.getSelectionModel().getSelectedItem(),locationTextField.getText().trim(), typeTextField.getText().trim(),
                     startUTC.toLocalDateTime().toString(),endUTC.toLocalDateTime().toString(),Instant.now().toString(),Integer.parseInt(customerIDTextField.getText().trim()),Integer.parseInt(userIDTextField.getText().trim()));

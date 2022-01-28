@@ -70,6 +70,11 @@ public class MainScreenController implements Initializable {
         alertFailure.setHeaderText("Error");
         alertFailure.showAndWait();
     }
+
+    /**
+     * Calls the ChangeSceneToUpdateCustomer method and passes in
+     * the selected customer to be updated
+     */
     @FXML
     private void updateCustomer() {
         Customer customer = customerTable.getSelectionModel().getSelectedItem();
@@ -95,6 +100,9 @@ public class MainScreenController implements Initializable {
         }
     }
 
+    /**
+     * Calls the changeSceneToAppointments() method, which changes the view
+     */
     @FXML
     private void viewAppointments() {
         try {
@@ -104,6 +112,9 @@ public class MainScreenController implements Initializable {
         }
     }
 
+    /**
+     * Calls the changeSceneToReports() method, which changes the view
+     */
     @FXML
     private void viewReports() {
         try {
@@ -116,17 +127,6 @@ public class MainScreenController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-
-
-
-
-
-
-
-
-
-
         customerID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
         customerName.setCellValueFactory(new PropertyValueFactory<>("customerName"));
         customerAddress.setCellValueFactory(new PropertyValueFactory<>("customerAddress"));
@@ -134,7 +134,6 @@ public class MainScreenController implements Initializable {
         customerPhone.setCellValueFactory(new PropertyValueFactory<>("customerPhone"));
         divisionID.setCellValueFactory(new PropertyValueFactory<>("divisionID"));
         CustomersDAO customersDAO = new CustomersDAO();
-
         customerTable.setItems(customersDAO.getAllCustomers());
         customerTable.refresh();
     }

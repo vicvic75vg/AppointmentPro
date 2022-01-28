@@ -17,6 +17,22 @@ public class Customer{
     private String divisionID;
     private FirstLevelDivision division;
     private Country country;
+
+    /**
+     * Creates a new Customer object
+     * @param customerID The Id of the customer
+     * @param customerName The customer's name
+     * @param customerAddress The address of the customer
+     * @param customerPostalCode The postal code of the customer address
+     * @param customerPhone The phone number of the customer
+     * @param createdDate The string of the date when the customer was
+     *                    added to the database
+     * @param createdBy The method by which the customer was created
+     * @param lastUpdated The string of the datetime when the customer was last updated in the database
+     * @param lastUpdatedBy The method by which the customer data was updated in the database
+     * @param division The FirstLevelDivision pertaining to the customer's address
+     * @param country The Country object by which the customer FirstLevelDivision pertains to
+     */
     public Customer(int customerID, String customerName, String customerAddress,
                     String customerPostalCode, String customerPhone, String createdDate,
                     String createdBy, String lastUpdated, String lastUpdatedBy,
@@ -35,21 +51,42 @@ public class Customer{
 
     }
 
+    /**
+     * Sets the ID of the customer
+     * @param customerID The customer ID
+     */
     public void setCustomerID(int customerID) {
         this.customerID = customerID;
     }
 
+    /**
+     * Sets the name of the customer
+     * @param customerName The name of the customer
+     */
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
     }
+
+    /**
+     * Sets the address of the customer
+     * @param customerAddress The customer address
+     */
     public void setCustomerAddress(String customerAddress) {
         this.customerAddress = customerAddress;
     }
 
+    /**
+     * Sets the phone number of the customer
+     * @param customerPhone The phone number of the customer
+     */
     public void setCustomerPhone(String customerPhone) {
         this.customerPhone = customerPhone;
     }
 
+    /**
+     * Sets the postal code of the customer
+     * @param customerPostalCode The customer postal code
+     */
     public void setCustomerPostalCode(String customerPostalCode) {
         this.customerPostalCode = customerPostalCode;
     }
@@ -126,6 +163,10 @@ public class Customer{
         return lastUpdatedBy;
     }
 
+    /**
+     * Gets the ID of the division
+     * @return The ID of the division
+     */
     public int getDivisionID() {
         return getDivision().getDivisionID();
     }
@@ -137,6 +178,10 @@ public class Customer{
         return division;
     }
 
+    /**
+     * Gets the Country object belonging to the customer
+     * @return The Country object of the customers address
+     */
     public Country getCountry() {
         return country;
     }

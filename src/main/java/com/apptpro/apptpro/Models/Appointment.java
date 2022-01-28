@@ -2,6 +2,7 @@ package com.apptpro.apptpro.Models;
 
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -19,6 +20,8 @@ public class Appointment{
     private int userID;
     private int contactID;
     private Contact contact;
+    private String formattedEnd;
+    private String formattedStart;
 
 
     public Appointment(int appointmentID, String title, String description, Contact contact, String location,
@@ -34,7 +37,25 @@ public class Appointment{
         setUserID(userID);
         setCreatedDate(createdDate);
         setContact(contact);
+
+        setFormattedEnd();
+        setFormattedStart();
     }
+
+    public String getFormattedStart() {
+        return DateTimeFormatting.UTCStringToDefaultTimeFormat(start,true,true);
+    }
+    public void setFormattedStart() {
+        this.formattedStart = DateTimeFormatting.UTCStringToDefaultTimeFormat(start,true, true);
+    }
+
+    public String getFormattedEnd() {
+        return DateTimeFormatting.UTCStringToDefaultTimeFormat(end,true,true);
+    }
+    public void setFormattedEnd() {
+        this.formattedEnd = DateTimeFormatting.UTCStringToDefaultTimeFormat(end,true,true);
+    }
+
 
     public void setCreatedDate(String createdDate) {
         this.createdDate = createdDate;
@@ -75,7 +96,10 @@ public class Appointment{
      * Gets the end date time of the appointment
      * @return A string representing the end date time
      */
-    public String getEnd() {
+    public String getEnd(boolean withT) {
+        if(withT) {
+            return end.replaceAll("\\s+","T");
+        }
         return end;
     }
 
@@ -91,7 +115,10 @@ public class Appointment{
      * Gets the start DateTime of the appointment
      * @return A string representing the start DateTime
      */
-    public String getStart() {
+    public String getStart(boolean withT) {
+        if(withT) {
+            return start.replaceAll("\\s+","T");
+        }
         return start;
     }
 

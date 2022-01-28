@@ -5,6 +5,7 @@ import com.apptpro.apptpro.DAO.ContactsDAO;
 import com.apptpro.apptpro.Main;
 import com.apptpro.apptpro.Models.Appointment;
 import com.apptpro.apptpro.Models.Contact;
+import com.apptpro.apptpro.Models.DateTimeFormatting;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -164,7 +165,6 @@ public class UpdateAppointmentController implements Initializable {
                 alert.showAndWait();
             } else if(Objects.equals(isSuccess,"False")) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setContentText("God dammit");
                 alert.showAndWait();
             }
 
@@ -202,16 +202,9 @@ public class UpdateAppointmentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-       LocalDateTime apptStart  = LocalDateTime.parse(selectedAppointment.getStart().replaceAll("\\s+","T"));
-       LocalDateTime apptEnd = LocalDateTime.parse(selectedAppointment.getEnd().replaceAll("\\s+","T"));
-
-       this.apptStart = ZonedDateTime.of(apptStart,ZoneId.of("UTC"));
-       this.apptEnd = ZonedDateTime.of(apptEnd,ZoneId.of("UTC"));
 
 
 
-        this.apptStart = ZonedDateTime.ofInstant(this.apptStart.toInstant(),ZoneId.systemDefault());
-        this.apptEnd = ZonedDateTime.ofInstant(this.apptEnd.toInstant(),ZoneId.systemDefault());
         ContactsDAO contactsDAO = new ContactsDAO();
         appointmentIDTextField.setText(String.valueOf(selectedAppointment.getAppointmentID()));
         titleTextField.setText(selectedAppointment.getTitle());
@@ -222,10 +215,14 @@ public class UpdateAppointmentController implements Initializable {
         typeTextField.setText(selectedAppointment.getType());
         customerIDTextField.setText(String.valueOf(selectedAppointment.getCustomerID()));
         userIDTextField.setText(String.valueOf(selectedAppointment.getUserID()));
-        startDatePicker.setValue(apptStart.toLocalDate());
-        endDatePicker.setValue(apptEnd.toLocalDate());
-        startTimeBox.setValue(this.apptStart.toLocalTime());
-        endTimeBox.setValue(this.apptEnd.toLocalTime());
+
+
+        startDatePicker.setValue(LocalDateTime.parse(selectedAppointment.getStart(true)).toLocalDate());
+        endDatePicker.setValue(LocalDateTime.parse(selectedAppointment.getEnd(true)).toLocalDate());
+
+
+        startTimeBox.setValue(LocalDateTime.parse(DateTimeFormatting.UTCStringToDefaultTimeFormat(selectedAppointment.getStart(true),false,false)).toLocalTime());
+        endTimeBox.setValue(LocalDateTime.parse(DateTimeFormatting.UTCStringToDefaultTimeFormat(selectedAppointment.getEnd(true),false,false)).toLocalTime());
         startTimeBox.setItems(allTimes);
         endTimeBox.setItems(allTimes);
 

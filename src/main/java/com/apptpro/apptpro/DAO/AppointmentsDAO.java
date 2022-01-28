@@ -2,9 +2,13 @@ package com.apptpro.apptpro.DAO;
 
 import com.apptpro.apptpro.Models.Appointment;
 import com.apptpro.apptpro.Models.Contact;
+import com.apptpro.apptpro.Models.DateTimeFormatting;
+import com.apptpro.apptpro.Models.TopContacts;
 import javafx.beans.binding.ObjectExpression;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -53,6 +57,27 @@ public class AppointmentsDAO {
     }
 
     /**
+     * Makes an SQL query to the database for getting a count on all appointments for
+     * each contact.
+     * @return An Observable List of TopContact objects
+     */
+    public ObservableList<TopContacts> getTopContacts() {
+        ObservableList<TopContacts> topContacts = FXCollections.observableArrayList();
+        try(Statement st = connection.createStatement()) {
+            String query = "SELECT Contact_Name,COUNT(Contact_Name) AS AppointmentCount FROM Appointments INNER JOIN contacts ON Appointments.Contact_ID = Contacts.Contact_ID GROUP BY Contact_Name ORDER BY AppointmentCount DESC;";
+            ResultSet rs = st.executeQuery(query);
+            while(rs.next()) {
+                TopContacts currContact = new TopContacts(rs.getString("Contact_Name"),rs.getInt("AppointmentCount"));
+                topContacts.add(currContact);
+            }
+        } catch(SQLException ex) {
+            ex.printStackTrace();
+        }
+        return topContacts ;
+    }
+
+
+    /**
      * Deletes an appointments of existing appointment ID
      * @param appointment The appointment to delete
      * @return True if successful, false if not
@@ -82,25 +107,21 @@ public class AppointmentsDAO {
 
                 if(rs.isBeforeFirst()) {
                     while (rs.next()) {
+                        //Getting UTC start and end dates straight from the database
                         String oldStart = rs.getString("Start").replaceAll("\\s+", "T");
                         String oldEnd = rs.getString("End").replaceAll("\\s+", "T");
-                        System.out.println(oldStart);
-                        System.out.println(oldEnd);
+
 
 
                         LocalDateTime oldApptStart = LocalDateTime.parse(oldStart);
                         LocalDateTime oldApptEnd = LocalDateTime.parse(oldEnd);
 
-                        String newStart = appointment.getStart().replaceAll("\\s+", "T");
-                        String newEnd = appointment.getEnd().replaceAll("\\s+", "T");
+                        String newStart = appointment.getStart(true);
+                        String newEnd = appointment.getEnd(true);
 
                         LocalDateTime newApptStart = LocalDateTime.parse(newStart);
                         LocalDateTime newApptEnd = LocalDateTime.parse(newEnd);
 
-                        System.out.println(oldApptEnd);
-                        System.out.println(oldApptStart);
-                        System.out.println(newApptStart);
-                        System.out.println(oldApptEnd);
 
                         if (oldApptStart.isBefore(newApptEnd) && oldApptEnd.isAfter(newApptStart) || oldApptStart.isEqual(newApptStart)) {
                             return "Booked";
@@ -118,7 +139,7 @@ public class AppointmentsDAO {
                                     "Description='%s', Location='%s', Type='%s', Start= '%s',End= '%s',Customer_ID=%s, " +
                                     "User_ID=%d,Contact_ID= %d  WHERE appointments.Appointment_ID=%d",
                             appointment.getTitle(),appointment.getDescription(),appointment.getLocation(),
-                            appointment.getType(),appointment.getStart(),appointment.getEnd(),appointment.getCustomerID(),
+                            appointment.getType(),appointment.getStart(false),appointment.getEnd(false),appointment.getCustomerID(),
                             appointment.getUserID(),appointment.getContact().getContactID(),appointment.getAppointmentID());
                     int result = st3.executeUpdate(query);
                     System.out.println("RESULT IS: " + result);
@@ -153,8 +174,8 @@ public class AppointmentsDAO {
                     LocalDateTime oldApptStart = LocalDateTime.parse(oldStart);
                     LocalDateTime oldApptEnd = LocalDateTime.parse(oldEnd);
 
-                    String newStart = appointment.getStart().replaceAll("\\s+","T");
-                    String newEnd = appointment.getEnd().replaceAll("\\s+","T");
+                    String newStart = appointment.getStart(true);
+                    String newEnd = appointment.getEnd(true);
 
                     LocalDateTime newApptStart = LocalDateTime.parse(newStart);
                     LocalDateTime newApptEnd = LocalDateTime.parse(newEnd);
@@ -162,7 +183,6 @@ public class AppointmentsDAO {
 
 
                     if(oldApptStart.isBefore(newApptEnd) && oldApptEnd.isAfter(newApptStart) || oldApptStart.isEqual(newApptStart)) {
-                        System.out.println("YAYY");
                         return "Booked";
                     }
                 }
@@ -177,7 +197,7 @@ public class AppointmentsDAO {
             if (!rs.isBeforeFirst() && rs2.isBeforeFirst()) {
                 Statement st3 = connection.createStatement();
                 String query = String.format("INSERT INTO appointments VALUES(%d, '%s', '%s', '%s', '%s', '%s', '%s', NOW(), 'apptpro', NOW(), 'apptpro', %d, %d, %d);", appointment.getAppointmentID(), appointment.getTitle(), appointment.getDescription(),
-                        appointment.getLocation(), appointment.getType(), appointment.getStart(), appointment.getEnd(), appointment.getCustomerID(),
+                        appointment.getLocation(), appointment.getType(), appointment.getStart(false), appointment.getEnd(false), appointment.getCustomerID(),
                         appointment.getUserID(), appointment.getContact().getContactID());
                 int result = st3.executeUpdate(query);
                 if (result == 1) {
@@ -221,6 +241,9 @@ public class AppointmentsDAO {
            while(rs.next()) {
                Contact contact = new Contact(rs.getInt("Contact_ID"),rs.getString("Contact_Name"),
                        rs.getString("Email"));
+
+
+
                Appointment appointment = new Appointment(
                        rs.getInt("Appointment_ID"),
                        rs.getString("title"),
@@ -300,6 +323,50 @@ public class AppointmentsDAO {
             ex.printStackTrace();
         }
         return -1;
+
+    }
+    public ObservableList<Contact> getAllContacts() {
+        ObservableList<Contact> allContacts = FXCollections.observableArrayList();
+        try(Statement st = connection.createStatement()) {
+            String query = "SELECT * FROM contacts;";
+            ResultSet rs =  st.executeQuery(query);
+            while(rs.next()) {
+                Contact contact = new Contact(rs.getInt("Contact_Id"),rs.getString("Contact_Name"),
+                        rs.getString("Email"));
+                allContacts.add(contact);
+            }
+        } catch(SQLException ex) {
+            ex.printStackTrace();
+        }
+        return allContacts;
+    }
+
+    public ObservableList<Appointment> getContactSchedule(Contact contact) {
+        ObservableList<Appointment> allAppts = FXCollections.observableArrayList();
+        try(Statement st = connection.createStatement()) {
+            String query = String.format("SELECT * FROM appointments WHERE Contact_Id = %d;",contact.getContactID());
+            ResultSet rs =  st.executeQuery(query);
+
+            while(rs.next()) {
+                Appointment appointment = new Appointment(
+                        rs.getInt("Appointment_ID"),
+                        rs.getString("title"),
+                        rs.getString("Description"),
+                        contact,
+                        rs.getString("Location"),
+                        rs.getString("Type"),
+                        rs.getString("Start"),
+                        rs.getString("End"),
+                        rs.getString("Create_Date"),
+                        rs.getInt("Customer_ID"),
+                        rs.getInt("User_ID") );
+                allAppts.add(appointment);
+            }
+
+        } catch(SQLException ex) {
+            ex.printStackTrace();
+        }
+        return allAppts;
 
     }
     public int getTotalApptsOfMonth(int monthNum) {

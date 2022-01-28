@@ -24,6 +24,10 @@ public class FirstLevelDivisionsDAO implements DAO<FirstLevelDivision>{
     ObservableList<FirstLevelDivision> allFirstLevelDivisions = FXCollections.observableArrayList();
 
 
+    /**
+     * Gets all first level divison data and creates new FirstLevelDivison objects for each row returned
+     * @return All FirstLevelDivision objects
+     */
     public ObservableList<FirstLevelDivision> getAllFirstLevelDivisions() {
         try (Statement st =  connection.createStatement()) {
             String query = "SELECT * FROM first_level_divisions;";
@@ -37,6 +41,7 @@ public class FirstLevelDivisionsDAO implements DAO<FirstLevelDivision>{
         }
         return allFirstLevelDivisions;
     }
+
 
     @Override
     public void save(FirstLevelDivision firstLevelDivision) {

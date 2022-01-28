@@ -15,11 +15,10 @@ public class ContactsDAO {
     private ObservableList<Contact> allContacts = FXCollections.observableArrayList();
 
 
-    public ContactsDAO() {
-
-    }
-
-
+    /**
+     * Gets all contacts in the database and creates new Contact objects for each returned row
+     * @return All contact objects
+     */
     public ObservableList<Contact> getAllContacts() {
         try(Statement st = connection.createStatement()) {
             String query = "SELECT * FROM contacts;";

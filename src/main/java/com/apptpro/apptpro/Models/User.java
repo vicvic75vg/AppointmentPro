@@ -4,6 +4,9 @@ package com.apptpro.apptpro.Models;
  * User model
  */
 public class User {
+    /**
+     * String representing the name of the user
+     */
     private String userName;
 
     /**

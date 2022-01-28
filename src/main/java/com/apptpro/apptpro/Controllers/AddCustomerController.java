@@ -50,6 +50,9 @@ public class AddCustomerController implements Initializable {
         }
     }
 
+    /**
+     * Adds Customer object from the fields to the database and changes to main screen on success
+     */
     @FXML
     private void addCustomer() {
         CustomersDAO customersDAO = new CustomersDAO();
@@ -69,6 +72,7 @@ public class AddCustomerController implements Initializable {
     /**
      * Reflects the changes necessary to load appropriate
      * first-level divisions in the customerFirstLevelField
+     * LAMBDA EXPRESSION USED TO FILTER FIRST LEVEL DIVISION BY SELECTED COUNTRY
      */
     @FXML
     private void propagateFirstLevelField() {

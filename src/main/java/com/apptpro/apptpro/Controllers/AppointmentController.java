@@ -4,6 +4,7 @@ import com.apptpro.apptpro.DAO.AppointmentsDAO;
 import com.apptpro.apptpro.Main;
 import com.apptpro.apptpro.Models.Appointment;
 import com.apptpro.apptpro.Models.Contact;
+import com.apptpro.apptpro.Models.DateTimeFormatting;
 import com.apptpro.apptpro.Models.Tables;
 import com.apptpro.apptpro.TableHelper;
 import javafx.collections.FXCollections;
@@ -15,7 +16,9 @@ import javafx.scene.control.*;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class AppointmentController implements Initializable {
@@ -70,6 +73,10 @@ public class AppointmentController implements Initializable {
             ex.printStackTrace();
         }
     }
+
+    /**
+     * Changes the view to the Appointments view
+     */
     @FXML
     private void addAppointment() {
         try {
@@ -78,6 +85,11 @@ public class AppointmentController implements Initializable {
             ex.printStackTrace();
         }
     }
+
+    /**
+     * Changes the view to the UpdateAppointments view and passes in the selected
+     * appointment to the controller
+     */
     @FXML
     private void updateAppointment() {
         Appointment appointment = apptTable.getSelectionModel().getSelectedItem();
@@ -90,6 +102,10 @@ public class AppointmentController implements Initializable {
             ex.printStackTrace();
         }
     }
+
+    /**
+     * Attempts to delete an appointment from the table and database
+     */
     @FXML
     private void deleteAppointment() {
         Appointment appointment = apptTable.getSelectionModel().getSelectedItem();
@@ -116,16 +132,10 @@ public class AppointmentController implements Initializable {
         apptTable.setItems(appointmentsDAO.getAllAppointments());
         apptTable.refresh();
     }
-    @FXML
-    private void populateByMonth() {
 
-        AppointmentsDAO appointmentsDAO = new AppointmentsDAO();
-        String selectedMonth = monthsCombo.getSelectionModel().getSelectedItem();
-
-
-        apptTable.setItems(appointmentsDAO.getByMonth(selectedMonth));
-        apptTable.refresh();
-    }
+    /**
+     * Populates the table with appointments in the next 7 days
+     */
     @FXML
     private void handleRadioWeek() {
         if(!radioButtonWeek.isSelected()) {
@@ -143,6 +153,10 @@ public class AppointmentController implements Initializable {
         apptTable.refresh();
 
     }
+
+    /**
+     * Populates the table by the selected month
+     */
     @FXML private void handleComboMonth() {
         if(monthsCombo.getSelectionModel().getSelectedItem() != null) {
             radioButtonAll.setSelected(false);
@@ -154,6 +168,10 @@ public class AppointmentController implements Initializable {
         apptTable.setItems(appointmentsDAO.getByMonth(monthsCombo.getSelectionModel().getSelectedItem()));
         apptTable.refresh();
     }
+
+    /**
+     * Changes the current view to the Reports view
+     */
     @FXML
     private void viewReports() {
         try {
@@ -164,6 +182,9 @@ public class AppointmentController implements Initializable {
     }
 
 
+    /**
+     * Populates the table with all the appointments
+     */
     @FXML
     private void handleRadioAll() {
         if(!radioButtonAll.isSelected()) {
@@ -180,6 +201,8 @@ public class AppointmentController implements Initializable {
         apptTable.setItems(appointmentsDAO.getAllAppointments());
         apptTable.refresh();
     }
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         TableHelper.initAllApptTables(appointmentID,title,description,location,contact,type,start,end,customerID,userID);
@@ -201,7 +224,11 @@ public class AppointmentController implements Initializable {
         monthsCombo.setItems(allMonths);
 
         AppointmentsDAO appointmentsDAO = new AppointmentsDAO();
+
+
+
         apptTable.setItems(appointmentsDAO.getByMonth(LocalDateTime.now().getMonth().toString()));
+
         handleRadioAll();
     }
 }

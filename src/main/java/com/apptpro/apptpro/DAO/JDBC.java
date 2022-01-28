@@ -13,6 +13,9 @@ public class JDBC {
     private static String password = "Passw0rd!"; // Password
     public static Connection connection;  // Connection Interface
 
+    /**
+     * Opens a new connection to the database using static credentials in this class
+     */
     public static void openConnection()
     {
         try {
@@ -26,6 +29,9 @@ public class JDBC {
         }
     }
 
+    /**
+     * Closes the current open connection to the database
+     */
     public static void closeConnection() {
         try {
             connection.close();
@@ -36,5 +42,10 @@ public class JDBC {
             System.out.println("Error:" + e.getMessage());
         }
     }
+
+    /**
+     * Gets the current open connection
+     * @return The current open connection
+     */
     public static Connection getConnection() { return connection; }
 }

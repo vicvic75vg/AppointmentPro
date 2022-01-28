@@ -12,13 +12,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.io.*;
+import java.text.SimpleDateFormat;
+import java.time.*;
 
 import java.net.URL;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -44,7 +43,7 @@ public class LoginController implements Initializable {
     private Button loginButton;
 
     /**
-     * The Resource Bundle
+     * The Resource Bundle loaded based on the users default locale
      */
     private ResourceBundle rb = ResourceBundle.getBundle("login",Locale.getDefault());
     /**
@@ -64,7 +63,7 @@ public class LoginController implements Initializable {
      * out, the user will enter the application.
      */
     @FXML
-    private void onLogin(){
+    private void onLogin() throws FileNotFoundException {
         if(passwordField.getText().trim().isEmpty() || usernameField.getText().trim().isEmpty())  {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(this.rb.getString("errorFieldEmpty"));
@@ -75,19 +74,39 @@ public class LoginController implements Initializable {
         UserLogin userLogin = new UserLogin();
         boolean isUserLoggedIn = userLogin.loginUser(usernameField.getText().trim(), passwordField.getText().trim());
 
+        //Open file
+        PrintWriter out =  new PrintWriter(new FileOutputStream("src/login_activity.txt", true));
+
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+        Date date = new Date(System.currentTimeMillis());
+
         if(!isUserLoggedIn) {
+            //An error occurred when logging in
+            String logActivityMessage = String.format("%s attempted login on %s and was not successful.\n",usernameField.getText().trim(), formatter.format(date));
+            out.append(logActivityMessage);
+
+            out.close();
+
+
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(this.rb.getString("errorLoggingIn"));
             alert.showAndWait();
             return;
         }
+
+        String logActivityMessage = String.format("%s attempted login on %s and was successful.\n",usernameField.getText().trim(), formatter.format(date));
+
+        out.append(logActivityMessage);
+        out.close();
+
         System.out.println("User logged in successfully...");
         Appointment appointment = hasAppointmentsSoon();
         if(appointment != null) {
 
             //Convert appointment time to LocalTimeZone
-            LocalDateTime apptStart  = LocalDateTime.parse(appointment.getStart().replaceAll("\\s+","T"));
-            LocalDateTime apptEnd = LocalDateTime.parse(appointment.getEnd().replaceAll("\\s+","T"));
+            LocalDateTime apptStart  = LocalDateTime.parse(appointment.getStart(false).replaceAll("\\s+","T"));
+            LocalDateTime apptEnd = LocalDateTime.parse(appointment.getEnd(false).replaceAll("\\s+","T"));
 
             ZonedDateTime zonedDateTimeStart = ZonedDateTime.of(apptStart,ZoneId.of("UTC"));
             ZonedDateTime zonedDateTimeEnd = ZonedDateTime.of(apptEnd,ZoneId.of("UTC"));
@@ -99,7 +118,7 @@ public class LoginController implements Initializable {
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText(String.format("You have an appointment soon! \n The appointment ID is: %d and it starts\n at %s and ends at %s",
-                    appointment.getAppointmentID(),zonedDateTimeStart,zonedDateTimeEnd));
+                    appointment.getAppointmentID(),zonedDateTimeStart.toLocalTime(),zonedDateTimeEnd.toLocalTime()));
             alert.showAndWait();
         } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -116,6 +135,7 @@ public class LoginController implements Initializable {
     /**
      * Checks to see if any appointments exists. If they do,
      * an Appointment object will be returned.
+     * LAMBDA EXPRESSION USED TO FIND ANY APPOINTMENTS WITHIN 15 MINUTES
      * @return An appointment within 15 minutes of the current time
      */
     private Appointment hasAppointmentsSoon() {
@@ -123,7 +143,7 @@ public class LoginController implements Initializable {
         AppointmentsDAO appointmentsDAO = new AppointmentsDAO();
         ObservableList<Appointment> allAppts = appointmentsDAO.getAllAppointments();
         allAppts = allAppts.filtered(appointment -> {
-            String start = appointment.getStart().replaceAll("\\s+","T");
+            String start = appointment.getStart(true);
             LocalDateTime apptTime = LocalDateTime.parse(start);
             return (apptTime.isBefore(now) && apptTime.isAfter(LocalDateTime.now(ZoneOffset.UTC)));
         });

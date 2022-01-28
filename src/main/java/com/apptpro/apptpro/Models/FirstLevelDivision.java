@@ -8,6 +8,12 @@ public class FirstLevelDivision {
     private int countryID;
 
 
+    /**
+     * Creates a FirstLevelDivision object
+     * @param divisionID The Division ID
+     * @param division The name of the division
+     * @param countryID The ID of the country for the division
+     */
     public FirstLevelDivision(int divisionID,String division,int countryID) {
          setDivisionID(divisionID);
          setDivision(division);
