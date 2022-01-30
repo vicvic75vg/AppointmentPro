@@ -4,6 +4,7 @@ import com.apptpro.apptpro.Controllers.*;
 import com.apptpro.apptpro.DAO.JDBC;
 import com.apptpro.apptpro.Models.Appointment;
 import com.apptpro.apptpro.Models.Customer;
+import com.sun.javafx.runtime.VersionInfo;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,6 +13,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+
+
 
 public class Main extends Application {
 

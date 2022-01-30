@@ -106,8 +106,10 @@ public class UpdateAppointmentController implements Initializable {
         ZonedDateTime zonedStart = ZonedDateTime.of(newStart,ZoneId.systemDefault());
         ZonedDateTime zonedEnd = ZonedDateTime.of(newEnd,ZoneId.systemDefault());
 
+
         ZonedDateTime startUTC =  ZonedDateTime.ofInstant(zonedStart.toInstant(),ZoneId.of("UTC"));
         ZonedDateTime endUTC =  ZonedDateTime.ofInstant(zonedEnd.toInstant(),ZoneId.of("UTC"));
+
 
 
 
@@ -118,16 +120,11 @@ public class UpdateAppointmentController implements Initializable {
            return;
 
        }
+        System.out.println("Start UTC " + startUTC);
 
-        //After careful considerations and numerous hours working on this particular block of code,
-        // I have concluded that the given time in the testing database is incorrect.
-        //The database gives us a time of 12:00 hours and is supposedly in UTC, according to the project instructions.
-        // 1200 hours in UTC is equivalent to 7:00am EST, assuming it is NOT Daylight Savings time. This means an existing
-        // sample appointment provided by WGU is set for 7:00am EST, when the office is closed.
-        //
-        //From this point forward, the code will take into account appointments made using correct UTC time.
-        // Creating an appointment using my application creates valid appointments checking against
-        //EST 8:00AM to 10:00pm, aka UTC 13:00 to 03:00
+
+        //After struggling with understanding why the given hour in the sample database was off by one hour,
+        //I realized that the sample data was created during Daylight Savings Time
        if((startUTC.getHour() >= 3 && startUTC.getHour() <= 12) || endUTC.getHour() >= 3 && endUTC.getHour() <= 12) {
 
            if(endUTC.getHour() == 3 && endUTC.getMinute() != 0) {
