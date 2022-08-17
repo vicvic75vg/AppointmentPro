@@ -1,7 +1,7 @@
 package com.apptpro.apptpro.Controllers;
 
 import com.apptpro.apptpro.DAO.AppointmentsDAO;
-import com.apptpro.apptpro.DAO.UserLogin;
+import com.apptpro.apptpro.DAO.UserManager;
 import com.apptpro.apptpro.Main;
 import com.apptpro.apptpro.Models.Appointment;
 import javafx.collections.ObservableList;
@@ -71,7 +71,7 @@ public class LoginController implements Initializable {
             return;
         }
 
-        UserLogin userLogin = new UserLogin();
+        UserManager userLogin = new UserManager();
         boolean isUserLoggedIn = userLogin.loginUser(usernameField.getText().trim(), passwordField.getText().trim());
 
         //Open file
@@ -130,6 +130,16 @@ public class LoginController implements Initializable {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+    }
+
+    @FXML
+    private void onSignup() {
+        try {
+            Main.changeSceneToSignup();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     /**

@@ -8,26 +8,41 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1080.0" style="-fx-background-color: #064789;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1080.0" style="-fx-background-color: #1A1D1F;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane layoutX="255.0" layoutY="95.0" prefHeight="582.0" prefWidth="502.0" style="-fx-background-color: #427AA1;">
+      <AnchorPane layoutX="255.0" layoutY="95.0" prefHeight="582.0" prefWidth="502.0">
          <children>
-            <Text fill="#ebf2fa" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AppointProfessional™" textAlignment="CENTER" wrappingWidth="526.0">
+            <Text fill="#e8f1ff" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AppointProfessional™" textAlignment="CENTER" wrappingWidth="526.0">
                <font>
                   <Font name="Arial" size="47.0" />
                </font>
             </Text>
-            <TextField fx:id="usernameField" layoutX="84.0" layoutY="261.0" prefHeight="33.0" prefWidth="337.0" >
+            <TextField fx:id="usernameField" layoutX="85.0" layoutY="240.0" prefHeight="51.0" prefWidth="337.0" promptText="Type username..." style="-fx-background-color: #141617; -fx-border-radius: 20px; -fx-background-radius: 20px;">
                <font>
                   <Font name="Arial" size="20.0" />
                </font>
             </TextField>
-            <PasswordField fx:id="passwordField" layoutX="85.0" layoutY="331.0" prefHeight="37.0" prefWidth="337.0">
+            <PasswordField fx:id="passwordField" layoutX="85.0" layoutY="337.0" prefHeight="51.0" prefWidth="337.0" promptText="Type password..." style="-fx-background-color: #141617; -fx-border-radius: 20x; -fx-background-radius: 20px;">
                <font>
                   <Font name="Arial" size="20.0" />
                </font>
             </PasswordField>
-            <Button fx:id="loginButton" layoutX="169.0" layoutY="422.0" mnemonicParsing="false" onAction="#onLogin" prefHeight="51.0" prefWidth="168.0" style="-fx-background-color: #064789;" textFill="#d7d7d7">
+            <Button fx:id="loginButton" layoutX="285.0" layoutY="426.0" mnemonicParsing="false" onAction="#onLogin" prefHeight="51.0" prefWidth="137.0" style="-fx-background-color: #0560FD;" text="Log In" textFill="#e8f1ff">
+               <font>
+                  <Font name="Arial" size="22.0" />
+               </font>
+            </Button>
+            <Text fill="#e8f1ff" layoutX="94.0" layoutY="226.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" textAlignment="CENTER" wrappingWidth="86.0">
+               <font>
+                  <Font name="Arial" size="18.0" />
+               </font>
+            </Text>
+            <Text fill="#e8f1ff" layoutX="97.0" layoutY="324.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" textAlignment="CENTER" wrappingWidth="80.0">
+               <font>
+                  <Font name="Arial" size="18.0" />
+               </font>
+            </Text>
+            <Button fx:id="signupButton" layoutX="94.0" layoutY="426.0" mnemonicParsing="false" onAction="#onSignup" prefHeight="51.0" prefWidth="118.0" style="-fx-background-color: #0560FD;" text="Sign Up" textFill="#e8f1ff">
                <font>
                   <Font name="Arial" size="22.0" />
                </font>
@@ -36,7 +51,7 @@
       </AnchorPane>
       <Label fx:id="localeLabel" layoutX="251.0" layoutY="56.0" prefHeight="37.0" prefWidth="526.0" textFill="WHITE">
          <font>
-            <Font name="Arial" size="12.0" />
+            <Font name="Arial" size="13.0" />
          </font>
       </Label>
    </children>

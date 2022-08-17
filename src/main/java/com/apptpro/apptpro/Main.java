@@ -23,6 +23,29 @@ public class Main extends Application {
      */
     private static Stage mainStage;
 
+    public static void changeSceneToSignup() throws IOException {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("Signup.fxml"));
+        SignupController controller = new SignupController();
+        loader.setController(controller);
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        mainStage.setScene(scene);
+    }
+
+
+    /**
+     * Changes scene to the login
+     * @throws IOException
+     */
+    public static void changeSceneToLogin() throws IOException {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("Login.fxml"));
+        LoginController controller = new LoginController();
+        loader.setController(controller);
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        mainStage.setScene(scene);
+    }
+
     /**
      * Opens the stage in JavaFX
      * @param stage The stage to use.
