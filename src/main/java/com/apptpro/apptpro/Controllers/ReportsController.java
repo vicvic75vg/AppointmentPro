@@ -151,8 +151,6 @@ public class ReportsController implements Initializable {
 
         AppointmentsDAO appointmentsDAO = new AppointmentsDAO();
 
-         byTypeBox.setItems(appointmentsDAO.getAllTypes());
-         byMonthBox.setItems(monthsStrings);
          contactBox.setItems(appointmentsDAO.getAllContacts());
 
     }

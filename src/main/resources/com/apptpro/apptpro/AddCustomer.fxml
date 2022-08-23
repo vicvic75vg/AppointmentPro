@@ -6,59 +6,76 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1080.0" style="-fx-background-color: #427AA1;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1080.0" style="-fx-background-color: F4F7FC;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Button fx:id="cancel" layoutX="14.0" layoutY="93.0" mnemonicParsing="false" onAction="#toMainScreen" prefHeight="47.0" prefWidth="207.0" text="Cancel">
+        <Button fx:id="cancel" layoutX="174.0" layoutY="553.0" mnemonicParsing="false" onAction="#toMainScreen" prefHeight="47.0" prefWidth="207.0" text="Cancel">
             <font>
                 <Font name="Arial" size="15.0" />
             </font>
         </Button>
-        <Button fx:id="createCustomerButton" onAction="#addCustomer" layoutX="426.0" layoutY="698.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="494.0" text="Create New Customer">
+        <Button fx:id="createCustomerButton" layoutX="689.0" layoutY="553.0" mnemonicParsing="false" onAction="#addCustomer" prefHeight="47.0" prefWidth="218.0" text="Create New Customer">
             <font>
                 <Font name="Arial" size="15.0" />
             </font>
         </Button>
-        <TextField fx:id="customerNameField" layoutX="384.0" layoutY="129.0" prefHeight="37.0" prefWidth="200.0" />
-        <Label layoutX="384.0" layoutY="106.0" prefHeight="21.0" prefWidth="112.0" text="Customer Name" textFill="WHITE">
-            <font>
-                <Font size="15.0" />
-            </font>
-        </Label>
-        <TextField fx:id="customerAddressField" layoutX="758.0" layoutY="129.0" prefHeight="37.0" prefWidth="200.0" />
-        <Label layoutX="758.0" layoutY="106.0" prefHeight="21.0" prefWidth="112.0" text="Address" textFill="WHITE">
-            <font>
-                <Font size="15.0" />
-            </font>
-        </Label>
-        <TextField fx:id="customerPhoneField" layoutX="758.0" layoutY="213.0" prefHeight="37.0" prefWidth="200.0" />
-        <Label layoutX="758.0" layoutY="185.0" prefHeight="17.0" prefWidth="89.0" text="Phone" textFill="WHITE">
-            <font>
-                <Font size="15.0" />
-            </font>
-        </Label>
-        <Label layoutX="535.0" layoutY="24.0" prefHeight="50.0" prefWidth="277.0" text="Add Customer" textAlignment="CENTER" textFill="WHITE">
+        <Label layoutX="431.0" layoutY="30.0" prefHeight="50.0" prefWidth="277.0" text="Add Customer" textAlignment="CENTER" textFill="#141617">
             <font>
                 <Font size="34.0" />
             </font>
         </Label>
-        <ComboBox fx:id="customerCountryField" layoutX="384.0" layoutY="309.0" onAction="#propagateFirstLevelField" prefHeight="37.0" prefWidth="200.0" />
-        <Label layoutX="384.0" layoutY="288.0" prefHeight="17.0" prefWidth="89.0" text="Country" textFill="WHITE">
-            <font>
-                <Font size="15.0" />
-            </font>
-        </Label>
-        <ComboBox fx:id="customerFirstLevelField" layoutX="758.0" layoutY="309.0" prefHeight="37.0" prefWidth="200.0" />
-        <Label layoutX="758.0" layoutY="288.0" prefHeight="21.0" prefWidth="127.0" text="First-Level Division" textFill="WHITE">
-            <font>
-                <Font size="15.0" />
-            </font>
-        </Label>
-        <TextField fx:id="customerPostalCodeField" layoutX="385.0" layoutY="217.0" prefHeight="37.0" prefWidth="200.0" />
-        <Label layoutX="383.0" layoutY="196.0" prefHeight="17.0" prefWidth="89.0" text="Postal Code" textFill="WHITE">
-            <font>
-                <Font size="15.0" />
-            </font>
-        </Label>
+        <ComboBox fx:id="customerCountryField" layoutX="169.0" layoutY="446.0" onAction="#propagateFirstLevelField" prefHeight="51.0" prefWidth="337.0" style="-fx-background-color: FFF; -fx-border-radius: 20px; -fx-background-radius: 20px;" />
+      <TextField fx:id="customerNameField" layoutX="169.0" layoutY="194.0" prefHeight="51.0" prefWidth="337.0" promptText="Type Customer Name..." style="-fx-background-color: FFF; -fx-border-radius: 20px; -fx-background-radius: 20px;">
+         <font>
+            <Font name="Arial" size="20.0" />
+         </font>
+      </TextField>
+      <Text fill="#5e6165" layoutX="169.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name" wrappingWidth="118.0">
+         <font>
+            <Font name="Arial" size="18.0" />
+         </font>
+      </Text>
+      <TextField fx:id="customerAddressField" layoutX="570.0" layoutY="194.0" prefHeight="51.0" prefWidth="337.0" promptText="Type Customer Address..." style="-fx-background-color: FFF; -fx-border-radius: 20px; -fx-background-radius: 20px;">
+         <font>
+            <Font name="Arial" size="20.0" />
+         </font>
+      </TextField>
+      <Text fill="#5e6165" layoutX="576.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Address" wrappingWidth="160.666748046875">
+         <font>
+            <Font name="Arial" size="18.0" />
+         </font>
+      </Text>
+      <TextField fx:id="customerPostalCodeField" layoutX="169.0" layoutY="313.0" prefHeight="51.0" prefWidth="337.0" promptText="Type Postal Code..." style="-fx-background-color: FFF; -fx-border-radius: 20px; -fx-background-radius: 20px;">
+         <font>
+            <Font name="Arial" size="20.0" />
+         </font>
+      </TextField>
+      <Text fill="#5e6165" layoutX="174.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Postal Code" wrappingWidth="160.666748046875">
+         <font>
+            <Font name="Arial" size="18.0" />
+         </font>
+      </Text>
+      <TextField fx:id="customerPhoneField" layoutX="574.0" layoutY="313.0" prefHeight="51.0" prefWidth="337.0" promptText="Type Phone Number" style="-fx-background-color: FFF; -fx-border-radius: 20px; -fx-background-radius: 20px;">
+         <font>
+            <Font name="Arial" size="20.0" />
+         </font>
+      </TextField>
+      <Text fill="#5e6165" layoutX="574.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone" wrappingWidth="160.666748046875">
+         <font>
+            <Font name="Arial" size="18.0" />
+         </font>
+      </Text>
+      <Text fill="#5e6165" layoutX="174.0" layoutY="434.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Country" wrappingWidth="160.666748046875">
+         <font>
+            <Font name="Arial" size="18.0" />
+         </font>
+      </Text>
+      <Text fill="#5e6165" layoutX="576.0" layoutY="434.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Level Division" wrappingWidth="160.666748046875">
+         <font>
+            <Font name="Arial" size="18.0" />
+         </font>
+      </Text>
+      <ComboBox fx:id="customerFirstLevelField" layoutX="570.0" layoutY="453.0" prefHeight="51.0" prefWidth="337.0" style="-fx-background-color: FFF; -fx-border-radius: 20px; -fx-background-radius: 20px;" />
     </children>
 </AnchorPane>

@@ -218,6 +218,7 @@ public class UpdateAppointmentController implements Initializable {
         endDatePicker.setValue(LocalDateTime.parse(selectedAppointment.getEnd(true)).toLocalDate());
 
 
+        appointmentIDTextField.setDisable(true);
         startTimeBox.setValue(LocalDateTime.parse(DateTimeFormatting.UTCStringToDefaultTimeFormat(selectedAppointment.getStart(true),false,false)).toLocalTime());
         endTimeBox.setValue(LocalDateTime.parse(DateTimeFormatting.UTCStringToDefaultTimeFormat(selectedAppointment.getEnd(true),false,false)).toLocalTime());
         startTimeBox.setItems(allTimes);

@@ -8,21 +8,21 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1080.0" style="-fx-background-color: #1A1D1F;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1080.0" style="-fx-background-color: F4F7FC;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane layoutX="255.0" layoutY="95.0" prefHeight="582.0" prefWidth="502.0">
          <children>
-            <Text fill="#e8f1ff" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AppointProfessional™" textAlignment="CENTER" wrappingWidth="526.0">
+            <Text fill="#141617" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AppointProfessional™" textAlignment="CENTER" wrappingWidth="526.0">
                <font>
                   <Font name="Arial" size="47.0" />
                </font>
             </Text>
-            <TextField fx:id="usernameField" layoutX="85.0" layoutY="240.0" prefHeight="51.0" prefWidth="337.0" promptText="Type username..." style="-fx-background-color: #141617; -fx-border-radius: 20px; -fx-background-radius: 20px;">
+            <TextField fx:id="usernameField" layoutX="85.0" layoutY="240.0" prefHeight="51.0" prefWidth="337.0" promptText="Type username..." style="-fx-background-color: FFF; -fx-border-radius: 20px; -fx-background-radius: 20px;">
                <font>
                   <Font name="Arial" size="20.0" />
                </font>
             </TextField>
-            <PasswordField fx:id="passwordField" layoutX="85.0" layoutY="337.0" prefHeight="51.0" prefWidth="337.0" promptText="Type password..." style="-fx-background-color: #141617; -fx-border-radius: 20x; -fx-background-radius: 20px;">
+            <PasswordField fx:id="passwordField" layoutX="85.0" layoutY="337.0" prefHeight="51.0" prefWidth="337.0" promptText="Type password..." style="-fx-background-color: FFF; -fx-border-radius: 20px; -fx-background-radius: 20px;">
                <font>
                   <Font name="Arial" size="20.0" />
                </font>
@@ -32,12 +32,12 @@
                   <Font name="Arial" size="22.0" />
                </font>
             </Button>
-            <Text fill="#e8f1ff" layoutX="94.0" layoutY="226.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" textAlignment="CENTER" wrappingWidth="86.0">
+            <Text fill="#707070" layoutX="94.0" layoutY="226.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" textAlignment="CENTER" wrappingWidth="86.0">
                <font>
                   <Font name="Arial" size="18.0" />
                </font>
             </Text>
-            <Text fill="#e8f1ff" layoutX="97.0" layoutY="324.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" textAlignment="CENTER" wrappingWidth="80.0">
+            <Text fill="#707070" layoutX="97.0" layoutY="324.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" textAlignment="CENTER" wrappingWidth="80.0">
                <font>
                   <Font name="Arial" size="18.0" />
                </font>
@@ -49,7 +49,7 @@
             </Button>
          </children>
       </AnchorPane>
-      <Label fx:id="localeLabel" layoutX="251.0" layoutY="56.0" prefHeight="37.0" prefWidth="526.0" textFill="WHITE">
+      <Label fx:id="localeLabel" layoutX="251.0" layoutY="56.0" prefHeight="37.0" prefWidth="526.0">
          <font>
             <Font name="Arial" size="13.0" />
          </font>

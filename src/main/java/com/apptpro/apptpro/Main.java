@@ -23,6 +23,8 @@ public class Main extends Application {
      */
     private static Stage mainStage;
 
+    private static String CSS;
+
     public static void changeSceneToSignup() throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("Signup.fxml"));
         SignupController controller = new SignupController();
@@ -58,6 +60,9 @@ public class Main extends Application {
         LoginController controller = new LoginController();
         fxmlLoader.setController(controller);
         Scene scene = new Scene(fxmlLoader.load());
+        CSS =  getClass().getResource("/stylesheet.css").toExternalForm();
+        scene.getStylesheets().add(CSS);
+
         mainStage.setTitle("ApptPro");
         mainStage.setScene(scene);
         mainStage.show();
@@ -75,6 +80,7 @@ public class Main extends Application {
         loader.setController(controller);
         Parent root = loader.load();
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(CSS);
         mainStage.setScene(scene);
     }
 
@@ -88,6 +94,7 @@ public class Main extends Application {
         loader.setController(controller);
         Parent root = loader.load();
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(CSS);
         mainStage.setScene(scene);
     }
 
@@ -102,6 +109,7 @@ public class Main extends Application {
 
         Parent root = loader.load();
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(CSS);
         mainStage.setScene(scene);
 
     }
@@ -117,6 +125,7 @@ public class Main extends Application {
 
         Parent root = loader.load();
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(CSS);
         mainStage.setScene(scene);
     }
 
@@ -131,6 +140,7 @@ public class Main extends Application {
 
         Parent root = loader.load();
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(CSS);
         mainStage.setScene(scene);
 
     }
@@ -146,6 +156,7 @@ public class Main extends Application {
 
         Parent root = loader.load();
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(CSS);
         mainStage.setScene(scene);
     }
 
@@ -161,6 +172,7 @@ public class Main extends Application {
 
         Parent root = loader.load();
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(CSS);
         mainStage.setScene(scene);
 
     }
@@ -175,6 +187,7 @@ public class Main extends Application {
         loader.setController(controller);
         Parent root = loader.load();
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(CSS);
         mainStage.setScene(scene);
     }
 

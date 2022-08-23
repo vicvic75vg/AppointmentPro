@@ -1,25 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1080.0" style="-fx-background-color: #427AA1;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1080.0" style="-fx-background-color: #F4F7FC;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Label fx:id="localeLabel" layoutX="251.0" layoutY="56.0" prefHeight="37.0" prefWidth="526.0" textFill="WHITE">
-            <font>
-                <Font name="Arial" size="12.0" />
-            </font>
-        </Label>
-      <Button layoutX="14.0" layoutY="136.0" mnemonicParsing="false" onAction="#viewAppointments" prefHeight="47.0" prefWidth="153.0" text="View Appointments">
+      <Button layoutX="21.0" layoutY="14.0" mnemonicParsing="false" onAction="#viewAppointments" prefHeight="47.0" prefWidth="182.0" text="View Appointments">
          <font>
             <Font name="Arial" size="15.0" />
          </font>
       </Button>
-      <TableView fx:id="customerTable" layoutY="202.0" prefHeight="557.0" prefWidth="1080.0" style="-fx-background-color: #FFF;">
+      <TableView fx:id="customerTable" layoutX="-1.0" layoutY="150.0" prefHeight="609.0" prefWidth="1080.0" style="-fx-background-color: #FFF;">
         <columns>
           <TableColumn fx:id="customerID" prefWidth="82.66668951511383" text="ID" />
           <TableColumn fx:id="customerName" prefWidth="200.66663360595703" text="NAME" />
@@ -29,25 +27,36 @@
             <TableColumn fx:id="divisionID" prefWidth="205.33343505859375" text="DIVISION ID" />
         </columns>
       </TableView>
-      <Button layoutX="406.0" layoutY="136.0" mnemonicParsing="false" onAction="#addCustomer" prefHeight="47.0" prefWidth="133.0" text="Add Customers">
-         <font>
-            <Font name="Arial" size="15.0" />
-         </font>
-      </Button>
-      <Button layoutX="586.0" layoutY="136.0" mnemonicParsing="false" onAction="#deleteCustomer" prefHeight="47.0" prefWidth="163.0" text="Delete Customer">
-         <font>
-            <Font name="Arial" size="15.0" />
-         </font>
-      </Button>
-      <Button layoutX="788.0" layoutY="136.0" mnemonicParsing="false" onAction="#updateCustomer" prefHeight="47.0" prefWidth="153.0" text="Update Customer">
-         <font>
-            <Font name="Arial" size="15.0" />
-         </font>
-      </Button>
-        <Button fx:id="viewReportsButton" layoutX="196.0" layoutY="136.0" mnemonicParsing="false" onAction="#viewReports" prefHeight="47.0" prefWidth="153.0" text="View Reports">
+        <Button fx:id="viewReportsButton" layoutX="223.0" layoutY="14.0" mnemonicParsing="false" onAction="#viewReports" prefHeight="47.0" prefWidth="153.0" text="View Reports">
         <font>
             <Font name="Arial" size="15.0" />
         </font>
     </Button>
+      <Text layoutX="370.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customers Table" textAlignment="CENTER" wrappingWidth="317.4700012207031">
+         <font>
+            <Font name="Arial Bold" size="30.0" />
+         </font>
+      </Text>
+      <ImageView fx:id="addCustomerImageView" fitHeight="46.0" fitWidth="46.0" layoutX="833.0" layoutY="103.0" onMouseClicked="#addCustomer" styleClass="customer-table-action-button">
+         <image>
+            <Image url="@../../../images/add-user.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="deleteCustomerImageView" fitHeight="46.0" fitWidth="46.0" layoutX="895.0" layoutY="103.0" onMouseClicked="#deleteCustomer" styleClass="customer-table-action-button">
+         <image>
+            <Image url="@../../../images/delete-account.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="updateCustomerImageView" fitHeight="46.0" fitWidth="46.0" layoutX="957.0" layoutY="103.0" onMouseClicked="#updateCustomer" styleClass="customer-table-action-button">
+         <image>
+            <Image url="@../../../images/transaction.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="logoutButton" layoutX="913.0" layoutY="14.0" mnemonicParsing="false" onAction="#logoutAction" prefHeight="47.0" prefWidth="153.0" styleClass="logout-button" text="Log Out">
+         <font>
+            <Font name="Arial" size="15.0" />
+         </font>
+      </Button>
+      <TextField fx:id="customerSearchTextField" layoutX="21.0" layoutY="109.0" prefHeight="34.0" prefWidth="299.0" promptText="Type to search customers by name..." style="-fx-background-color: FFF; -fx-background-radius: 20px; -fx-border-radius: 20px;" />
     </children>
 </AnchorPane>

@@ -188,6 +188,7 @@ public class AddAppointmentController implements Initializable {
         ContactsDAO contactsDAO = new ContactsDAO();
         contactComboBox.setItems(contactsDAO.getAllContacts());
 
+        appointmentIDTextField.setDisable(true);
         startTimeBox.setItems(allTimes);
         endTimeBox.setItems(allTimes);
     }

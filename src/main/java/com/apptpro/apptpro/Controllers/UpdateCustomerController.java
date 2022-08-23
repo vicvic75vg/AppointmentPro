@@ -22,8 +22,6 @@ public class UpdateCustomerController implements Initializable {
     private Customer selectedCustomer;
 
     @FXML
-    private TableView<Customer> customerTable;
-    @FXML
     private TextField customerIDField;
     @FXML
     private TextField customerNameField;
@@ -39,18 +37,7 @@ public class UpdateCustomerController implements Initializable {
     private ComboBox<FirstLevelDivision> customerFirstLevelField;
     @FXML
     private Button cancelButton;
-    @FXML
-    private TableColumn<Customer,Integer> customerID;
-    @FXML
-    private TableColumn<Customer,String> customerName;
-    @FXML
-    private TableColumn<Customer,String> customerAddress;
-    @FXML
-    private TableColumn<Customer,String>  customerPostalCode;
-    @FXML
-    private TableColumn<Customer,String> customerPhone;
-    @FXML
-    private TableColumn<Customer, Integer> divisionID;
+
 
 
 
@@ -126,20 +113,11 @@ public class UpdateCustomerController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        customerID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
-        customerName.setCellValueFactory(new PropertyValueFactory<>("customerName"));
-        customerAddress.setCellValueFactory(new PropertyValueFactory<>("customerAddress"));
-        customerPostalCode.setCellValueFactory(new PropertyValueFactory<>("customerPostalCode"));
-        customerPhone.setCellValueFactory(new PropertyValueFactory<>("customerPhone"));
-        divisionID.setCellValueFactory(new PropertyValueFactory<>("divisionID"));
-        CustomersDAO customersDAO = new CustomersDAO();
-
-        customerTable.setItems(customersDAO.getAllCustomers());
-        customerTable.refresh();
 
 
 
         customerIDField.setText(String.valueOf(selectedCustomer.getCustomerID()));
+        customerIDField.setDisable(true);
         customerNameField.setText(selectedCustomer.getCustomerName());
         customerAddressField.setText(selectedCustomer.getCustomerAddress());
         customerPostalCodeField.setText(selectedCustomer.getCustomerPostalCode());

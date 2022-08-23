@@ -1,64 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1080.0" style="-fx-background-color: #427AA1;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1080.0" style="-fx-background-color: F4F7FC;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-
-        <Label fx:id="localeLabel" layoutX="251.0" layoutY="56.0" prefHeight="37.0" prefWidth="526.0" textFill="WHITE">
-            <font>
-                <Font name="Arial" size="12.0" />
-            </font>
-        </Label>
-        <Button fx:id="viewCustomersButton" layoutX="14.0" layoutY="93.0" mnemonicParsing="false" onAction="#viewCustomers" prefHeight="47.0" prefWidth="153.0" text="View Customers">
+        <Button fx:id="viewCustomersButton" layoutX="21.0" layoutY="14.0" mnemonicParsing="false" onAction="#viewCustomers" prefHeight="47.0" prefWidth="182.0" text="View Customers">
             <font>
                 <Font name="Arial" size="15.0" />
             </font>
         </Button>
-        <Button fx:id="addAppointment" layoutX="178.0" layoutY="698.0" mnemonicParsing="false" onAction="#addAppointment" prefHeight="47.0" prefWidth="207.0" text="Add Appointment">
-            <font>
-                <Font name="Arial" size="15.0" />
-            </font>
-        </Button>
-        <Button layoutX="526.0" layoutY="698.0" mnemonicParsing="false" onAction="#deleteAppointment" prefHeight="47.0" prefWidth="207.0" text="Delete Appointment">
-            <font>
-                <Font name="Arial" size="15.0" />
-            </font>
-        </Button>
-        <Button layoutX="858.0" layoutY="698.0" mnemonicParsing="false" onAction="#updateAppointment" prefHeight="47.0" prefWidth="207.0" text="Update Appointment">
-            <font>
-                <Font name="Arial" size="15.0" />
-            </font>
-        </Button>
-      <TableView fx:id="apptTable" layoutX="178.0" layoutY="56.0" prefHeight="589.0" prefWidth="903.0">
+      <TableView fx:id="apptTable" layoutX="-1.0" layoutY="150.0" prefHeight="611.0" prefWidth="1073.0">
          <columns>
-            <TableColumn fx:id="appointmentID" prefWidth="104.0" text="Appointment_ID" />
-            <TableColumn fx:id="title" prefWidth="58.0" text="Title" />
-            <TableColumn fx:id="description" prefWidth="81.0" text="Description" />
-            <TableColumn fx:id="location" prefWidth="70.0" text="Location" />
-            <TableColumn fx:id="contact" prefWidth="79.0" text="Contact" />
-            <TableColumn fx:id="type" prefWidth="76.0" text="Type" />
-            <TableColumn fx:id="start" prefWidth="140.0" text="Start Date and Time" />
-            <TableColumn fx:id="end" prefWidth="155.0" text="End Date and Time" />
-            <TableColumn fx:id="customerID" prefWidth="76.0" text="Customer_ID" />
-            <TableColumn fx:id="userID" prefWidth="63.0" text="User_ID" />
+            <TableColumn fx:id="appointmentID" prefWidth="112.00000250339508" text="APPOINTMENT_ID" />
+            <TableColumn fx:id="title" prefWidth="65.99999237060547" text="TITLE" />
+            <TableColumn fx:id="description" prefWidth="91.99998474121094" text="DESCRIPTION" />
+            <TableColumn fx:id="location" prefWidth="74.66668701171875" text="LOCATION" />
+            <TableColumn fx:id="contact" prefWidth="62.0" text="CONTACT" />
+            <TableColumn fx:id="type" prefWidth="64.0" text="TYPE" />
+            <TableColumn fx:id="start" prefWidth="140.0" text="START DATE AND TIME" />
+            <TableColumn fx:id="end" prefWidth="155.0" text="END DATE AND TIME" />
+            <TableColumn fx:id="customerID" prefWidth="116.6666259765625" text="CUSTOMER_ID" />
+            <TableColumn fx:id="userID" prefWidth="67.333251953125" text="USER_ID" />
          </columns>
       </TableView>
-      <RadioButton fx:id="radioButtonAll" layoutX="722.0" layoutY="21.0" mnemonicParsing="false" onMouseClicked="#handleRadioAll" selected="true" text="See All Appointments" textFill="WHITE" />
-      <RadioButton fx:id="radioButtonWeek" layoutX="876.0" layoutY="21.0" mnemonicParsing="false" onMouseClicked="#handleRadioWeek" text="See Appointments for Next 7 Days" textFill="WHITE" />
-      <ComboBox fx:id="monthsCombo" layoutX="176.0" layoutY="26.0" onAction="#handleComboMonth" prefWidth="150.0" promptText="By Month" />
-      <Label layoutX="332.0" layoutY="30.0" text="See Appointments by Month" textFill="WHITE" />
-      <Button fx:id="viewReportsButton" layoutX="14.0" layoutY="598.0" mnemonicParsing="false" onAction="#viewReports" prefHeight="47.0" prefWidth="153.0" text="View Reports">
+      <Button fx:id="viewReportsButton" layoutX="223.0" layoutY="14.0" mnemonicParsing="false" onAction="#viewReports" prefHeight="47.0" prefWidth="153.0" text="View Reports">
          <font>
             <Font name="Arial" size="15.0" />
          </font>
       </Button>
+      <ImageView fx:id="addAppointmentImageView" fitHeight="46.0" fitWidth="46.0" layoutX="833.0" layoutY="103.0" onMouseClicked="#addAppointment" styleClass="appointments-table-action-button">
+         <image>
+            <Image url="@../../../images/appointments.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="deleteAppointmentImageView" fitHeight="46.0" fitWidth="46.0" layoutX="895.0" layoutY="103.0" onMouseClicked="#deleteAppointment" styleClass="appointments-table-action-button">
+         <image>
+            <Image url="@../../../images/calendar.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="updateAppointmentImageView" fitHeight="46.0" fitWidth="46.0" layoutX="957.0" layoutY="103.0" onMouseClicked="#updateAppointment" styleClass="appointments-table-action-button">
+         <image>
+            <Image url="@../../../images/calendar(1).png" />
+         </image>
+      </ImageView>
+      <Text layoutX="381.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Appointments Table" textAlignment="CENTER" wrappingWidth="317.4700012207031">
+         <font>
+            <Font name="Arial Bold" size="30.0" />
+         </font>
+      </Text>
+      <Button fx:id="logoutButton" layoutX="913.0" layoutY="14.0" mnemonicParsing="false" onAction="#logoutAction" prefHeight="47.0" prefWidth="153.0" styleClass="logout-button" text="Log Out">
+         <font>
+            <Font name="Arial" size="15.0" />
+         </font>
+      </Button>
+      <TextField fx:id="appointmentSearchTextField" layoutX="33.0" layoutY="109.0" prefHeight="34.0" prefWidth="253.0" promptText="Type to search appointment by title..." style="-fx-background-color: FFF; -fx-background-radius: 20px; -fx-border-radius: 20px;" />
     </children>
 </AnchorPane>

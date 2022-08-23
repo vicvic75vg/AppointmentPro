@@ -1,0 +1,95 @@
+* {
+
+
+}
+.table-button {
+
+	-fx-cursor: hand;
+}
+.table-button:hover{
+	-fx-background-color: transparent;
+}
+.table-view {
+	-fx-border-color: #FFF;
+	-fx-background-color: #FFF; /* OR  -fx-background-insets: 0.0; */
+}
+.table-view .column-header-background,
+.table-view .column-header-background .filler,
+.table-view .corner {
+	-fx-background-color: #FFF;
+}
+.table-view .column-header {
+	-fx-background-color: -fx-light-grey-color;
+}
+.table-view .column-header .label{
+	-fx-font-weight: bold;
+	-fx-alignment: center-left;
+}
+/* This is just magic */
+.table-row-cell:filled {
+	-fx-background-color: #FFF;
+	-fx-border-insets: 0, 1;
+}
+.table-row-cell:empty {
+	-fx-background-color: #FFF;
+}
+.table-row-cell:filled:hover {
+	-fx-background-color: #999;
+}
+.table-row-cell:filled:selected:hover {
+	-fx-background-color: #999;
+}
+.table-row-cell:filled:selected {
+  	-fx-background-color: #eaeaea;
+ 	-fx-background-insets: 0.0;
+	-fx-background-radius: 0.0;
+}
+.table-row-cell:filled:selected .table-cell {
+	-fx-text-fill: black;
+}
+.table-view .cell:filled{
+}
+.check-box-table-cell > .check-box:selected .box .mark {
+	-fx-background-color: white;
+}
+.check-box-table-cell > .check-box:selected .box{
+	-fx-background-color: -fx-accent-color;
+}
+.table-view .placeholder .label {
+	-fx-text-fill: black;
+	-fx-padding:20px;
+}
+.button {
+    -fx-background-color: #0560FD;
+	-fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+}
+.button:hover {
+    /*OpenJDK bug open that changes text when a button mouse hover on button*/
+    -fx-font-size: 15px;
+
+    -fx-background-color: #0550ff;
+    -fx-cursor: hand;
+}
+.customer-table-action-button:hover {
+    -fx-cursor: hand;
+}
+.appointments-table-action-button:hover {
+    -fx-cursor: hand;
+}
+.combo-box {
+    -fx-font-size: 15px;
+}
+.text-area {
+    -fx-font-size: 15px;
+}
+.date-picker {
+    -fx-font-size: 15px;
+}
+.logout-button {
+    -fx-background-color: #F61A1A;
+}
+.logout-button:hover {
+    -fx-background-color: #F61A1A;
+}

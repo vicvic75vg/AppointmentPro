@@ -7,11 +7,17 @@ import com.apptpro.apptpro.Models.Contact;
 import com.apptpro.apptpro.Models.DateTimeFormatting;
 import com.apptpro.apptpro.Models.Tables;
 import com.apptpro.apptpro.TableHelper;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 
 import java.io.IOException;
 import java.net.URL;
@@ -60,7 +66,21 @@ public class AppointmentController implements Initializable {
     @FXML
     private RadioButton radioButtonAll;
 
+    @FXML
+    private ImageView addAppointmentImageView;
+
+    @FXML
+    private ImageView deleteAppointmentImageView;
+
+    @FXML
+    private ImageView updateAppointmentImageView;
+
+    @FXML
+    private TextField appointmentSearchTextField;
+
     private ObservableList<String> allMonths = FXCollections.observableArrayList();
+
+    private ObservableList<Appointment> appointmentObservableList = FXCollections.observableArrayList();
 
     /**
      * Changes the main stage to view all customers
@@ -102,7 +122,17 @@ public class AppointmentController implements Initializable {
             ex.printStackTrace();
         }
     }
-
+    /**
+     * Logs the user out of the application. The user must verify credentials to view data
+     */
+    @FXML
+    private void logoutAction() {
+        try {
+            Main.changeSceneToLogin();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     /**
      * Attempts to delete an appointment from the table and database
      */
@@ -208,27 +238,59 @@ public class AppointmentController implements Initializable {
         TableHelper.initAllApptTables(appointmentID,title,description,location,contact,type,start,end,customerID,userID);
 
 
-        allMonths.add("JANUARY");
-        allMonths.add("FEBRUARY");
-        allMonths.add("MARCH");
-        allMonths.add("APRIL");
-        allMonths.add("MAY");
-        allMonths.add("JUNE");
-        allMonths.add("JULY");
-        allMonths.add("AUGUST");
-        allMonths.add("SEPTEMBER");
-        allMonths.add("OCTOBER");
-        allMonths.add("NOVEMBER");
-        allMonths.add("DECEMBER");
-
-        monthsCombo.setItems(allMonths);
 
         AppointmentsDAO appointmentsDAO = new AppointmentsDAO();
+        appointmentObservableList = appointmentsDAO.getAllAppointments();
+
+        FilteredList<Appointment> filteredList = new FilteredList<>(appointmentObservableList,p -> true);
+
+        appointmentSearchTextField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                filteredList.setPredicate(appointment -> {
+                    // If filter text is empty, display all persons.
+                    if (newValue == null || newValue.isEmpty()) {
+                        return true;
+                    }
+
+                    // Compare first name and last name of every person with filter text.
+                    String lowerCaseFilter = newValue.toLowerCase();
+
+                    if (appointment.getTitle().toLowerCase().contains(lowerCaseFilter)) {
+                        return true; // Filter matches first name.
+                    }
+                    return false; // Does not match.
+                });
+            }
+        });
+        SortedList<Appointment> sortedList = new SortedList<>(filteredList);
+        sortedList.comparatorProperty().bind(apptTable.comparatorProperty());
+        apptTable.setItems(sortedList);
 
 
+        Tooltip addAppointmentTooltip = new Tooltip("Add Appointment");
+        Tooltip deleteAppointmentTooltip = new Tooltip("Delete Appointment");
+        Tooltip updateAppointmentTooltip = new Tooltip("Update Appointment");
 
-        apptTable.setItems(appointmentsDAO.getByMonth(LocalDateTime.now().getMonth().toString()));
 
-        handleRadioAll();
+        Tooltip.install(addAppointmentImageView,addAppointmentTooltip);
+        Tooltip.install(deleteAppointmentImageView,deleteAppointmentTooltip);
+        Tooltip.install(updateAppointmentImageView,updateAppointmentTooltip);
+
+        //Disable/enable of update and delete appointment imageview
+
+
+        deleteAppointmentImageView.setOpacity(0.5);
+        updateAppointmentImageView.setOpacity(0.5);
+        apptTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Appointment>() {
+            @Override
+            public void changed(ObservableValue<? extends Appointment> observable, Appointment oldValue, Appointment newValue) {
+                if (newValue != null) {
+                    deleteAppointmentImageView.setOpacity(1);
+                    updateAppointmentImageView.setOpacity(1);
+                }
+            }
+        });
+
     }
 }

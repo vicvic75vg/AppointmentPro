@@ -180,5 +180,6 @@ public class LoginController implements Initializable {
         usernameField.setPromptText(this.rb.getString("username"));
         loginButton.setText(this.rb.getString("login"));
         localeLabel.setText(getZoneIdMessage());
+        loginButton.setDefaultButton(true);
     }
 }

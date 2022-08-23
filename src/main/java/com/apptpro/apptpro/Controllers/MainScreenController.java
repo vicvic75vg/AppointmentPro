@@ -7,11 +7,18 @@ import com.apptpro.apptpro.Main;
 import com.apptpro.apptpro.Models.Appointment;
 import com.apptpro.apptpro.Models.Customer;
 import com.apptpro.apptpro.Models.Tables;
+import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 
 import java.io.IOException;
 import java.net.URL;
@@ -37,6 +44,20 @@ public class MainScreenController implements Initializable {
     @FXML
     private TableColumn<Customer, Integer> divisionID;
 
+    @FXML
+    private ImageView addCustomerImageView;
+
+    @FXML
+    private ImageView updateCustomerImageView;
+
+    @FXML
+    private ImageView deleteCustomerImageView;
+
+    @FXML
+    private ObservableList<Customer> customerObservableList = FXCollections.observableArrayList();
+
+    @FXML
+    private TextField customerSearchTextField;
 
     /**
      * Removes the selected customer from the database.
@@ -99,7 +120,17 @@ public class MainScreenController implements Initializable {
             ex.printStackTrace();
         }
     }
-
+    /**
+     * Logs the user out of the application. The user must verify credentials to view data
+     */
+    @FXML
+    private void logoutAction() {
+        try {
+            Main.changeSceneToLogin();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     /**
      * Calls the changeSceneToAppointments() method, which changes the view
      */
@@ -127,6 +158,7 @@ public class MainScreenController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         customerID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
         customerName.setCellValueFactory(new PropertyValueFactory<>("customerName"));
         customerAddress.setCellValueFactory(new PropertyValueFactory<>("customerAddress"));
@@ -134,7 +166,62 @@ public class MainScreenController implements Initializable {
         customerPhone.setCellValueFactory(new PropertyValueFactory<>("customerPhone"));
         divisionID.setCellValueFactory(new PropertyValueFactory<>("divisionID"));
         CustomersDAO customersDAO = new CustomersDAO();
-        customerTable.setItems(customersDAO.getAllCustomers());
-        customerTable.refresh();
+
+
+        //Search by customer name logic
+        customerObservableList = customersDAO.getAllCustomers();
+
+        FilteredList<Customer> filteredList = new FilteredList<>(customerObservableList, p -> true);
+
+        customerSearchTextField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                filteredList.setPredicate(customer -> {
+                    // If filter text is empty, display all persons.
+                    if (newValue == null || newValue.isEmpty()) {
+                        return true;
+                    }
+
+                    // Compare first name and last name of every person with filter text.
+                    String lowerCaseFilter = newValue.toLowerCase();
+
+                    if (customer.getCustomerName().toLowerCase().contains(lowerCaseFilter)) {
+                        return true; // Filter matches first name.
+                    }
+                    return false; // Does not match.
+                });
+            }
+        });
+        SortedList<Customer> sortedList = new SortedList<>(filteredList);
+        sortedList.comparatorProperty().bind(customerTable.comparatorProperty());
+        customerTable.setItems(sortedList);
+
+
+
+
+        Tooltip addCustomerImageViewTooltip = new Tooltip("Add Customer");
+        Tooltip deleteCustomerImageViewTooltip = new Tooltip("Delete Customer");
+        Tooltip updateCustomerImageViewTooltip = new Tooltip("Update Customer");
+
+        Tooltip.install(addCustomerImageView,addCustomerImageViewTooltip);
+        Tooltip.install(deleteCustomerImageView,deleteCustomerImageViewTooltip);
+        Tooltip.install(updateCustomerImageView,updateCustomerImageViewTooltip);
+
+
+        //Set disabled and opacity by default
+        deleteCustomerImageView.setOpacity(0.50);
+        updateCustomerImageView.setOpacity(0.50);
+
+        customerTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Customer>() {
+            @Override
+            public void changed(ObservableValue<? extends Customer> observable, Customer oldValue, Customer newValue) {
+                if (newValue != null) {
+                    //As long as some value is selected in the table, we enable the buttons to update or delete customer
+                    deleteCustomerImageView.setOpacity(1);
+                    updateCustomerImageView.setOpacity(1);
+
+                }
+            }
+        });
     }
 }

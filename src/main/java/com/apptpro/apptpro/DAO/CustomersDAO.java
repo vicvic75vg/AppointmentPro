@@ -43,7 +43,6 @@ public class CustomersDAO implements DAO<Customer>{
             ResultSet rs = st.executeQuery(query);
 
             while (rs.next()) {
-                System.out.println(rs.getTimestamp("Create_Date"));
                 FirstLevelDivision firstLevelDivision = new FirstLevelDivision(rs.getInt("Division_ID"),rs.getString("Division"),rs.getInt("Country_ID"));
                 Country country = new Country(rs.getInt("Country_ID"),rs.getString("Country"));
                 Customer newCustomer = new Customer(rs.getInt("Customer_ID"),
